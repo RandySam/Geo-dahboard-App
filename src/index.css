@@ -1,0 +1,273 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 320px;
+  height: 100%;        /* full tinggi parent */
+  overflow-y: auto;    /* scroll vertikal */
+  overflow-x: hidden;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: #0f0f0f;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 🔥 jarak antar item */
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #2f2f2f;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #4f8cff;
+}
+
+.sidebar h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.map-container {
+  flex: 1;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.cluster-icon {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+/* ========================= */
+/* MODERN MAP STYLE */
+/* ========================= */
+
+.leaflet-top.leaflet-right {
+  margin-top: 25px;
+  margin-right: 25px;
+}
+
+.leaflet-bottom.leaflet-right {
+  margin-bottom: 25px;
+  margin-right: 25px;
+}
+
+/* Semua control container */
+.leaflet-control {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(12px);
+  border-radius: 18px !important;
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.15),
+    0 1px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+/* Hover glow */
+.leaflet-control:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(0,0,0,0.2),
+    0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Button di dalam control */
+.leaflet-control a {
+  background: transparent !important;
+  color: #222 !important;
+  border: none !important;
+  width: 42px;
+  height: 42px;
+  line-height: 42px !important;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect tombol */
+.leaflet-control a:hover {
+  background: rgba(0,0,0,0.05) !important;
+}
+
+/* Zoom control khusus */
+.leaflet-control-zoom {
+  border-radius: 18px !important;
+}
+
+/* Geoman toolbar */
+.leaflet-pm-toolbar {
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+
+/* Icon scale effect */
+.leaflet-pm-icon {
+  transition: transform 0.2s ease;
+}
+
+.leaflet-pm-icon:hover {
+  transform: scale(1.15);
+}
+
+/* Active state */
+.leaflet-pm-icon.active {
+  background: #111 !important;
+  color: white !important;
+}
+.leaflet-pm-icon.active:hover {
+  background: #222 !important;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* card */
+.location-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 14px 18px;
+  border-radius: 20px;
+
+  background: linear-gradient(145deg, #1c1c1c, #141414);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+
+  min-width: none;
+}
+
+.location-item:hover {
+  background: #262626;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.6);
+}
+
+/* title */
+.location-item span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* action area */
+.item-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0; /* 🔥 penting supaya tombol tidak mengecil */
+}
+
+.item-actions button {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+
+  background: #2c2c2c;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.item-actions button:hover {
+  background: #4f8cff;
+}
+
+
+/* edit input */
+.edit-input {
+  flex: 1;
+  min-width: 0; /* 🔥 WAJIB untuk flex child */
+  max-width: 100%;
+
+  background: #2c2c2c;
+  border: 2px solid #4f8cff;
+  border-radius: 14px;
+  padding: 8px 14px;
+  color: white;
+  outline: none;
+  font-size: 15px;
+}
+
+.edit-input:focus {
+  box-shadow: 0 0 0 2px #4f8cff;
+}
+
+
+/* edit buttons */
+.edit-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-buttons button {
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.edit-buttons button:first-child {
+  background: #ffffff;
+  color: #000000;
+}
+
+.edit-buttons button:last-child {
+  background: #2a2a2a;
+  color: white;
+}
+
+.distance-tooltip {
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+}
+
+.coord-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
