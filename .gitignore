@@ -1,14 +1,5 @@
-# Node
-node_modules/
+__pycache__/
+*.pyc
 .env
-
-# Logs
-logs/
-*.log
-
-# Build
-dist/
-build/
-
-# OS
-.DS_Store
+.venv/
+.ipynb_checkpoints/
