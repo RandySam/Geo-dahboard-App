@@ -1,4 +1,6 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   margin: 0;
 }
@@ -9,153 +11,47 @@ html, body, #root {
   overflow: hidden;
 }
 
+.map-container {
+  flex: 1;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== SIDEBAR ===== */
 .sidebar {
   width: 320px;
-  height: 100%;        /* full tinggi parent */
-  overflow-y: auto;    /* scroll vertikal */
+  height: 100%;
+  overflow-y: auto;
   overflow-x: hidden;
 
   padding: 24px;
   box-sizing: border-box;
 
   background: #0f0f0f;
-  
+
   display: flex;
   flex-direction: column;
-  gap: 20px; /* 🔥 jarak antar item */
-}
-
-.sidebar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-  background: #2f2f2f;
-  border-radius: 10px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: #4f8cff;
+  gap: 20px;
 }
 
 .sidebar h2 {
+  margin: 0;
   font-size: 30px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0;
+  color: white;
   letter-spacing: -0.5px;
 }
 
-.map-container {
-  flex: 1;
-}
-
-.leaflet-container {
-  height: 100%;
-  width: 100%;
-}
-
-.cluster-icon {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 50%;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-}
-/* ========================= */
-/* MODERN MAP STYLE */
-/* ========================= */
-
-.leaflet-top.leaflet-right {
-  margin-top: 25px;
-  margin-right: 25px;
-}
-
-.leaflet-bottom.leaflet-right {
-  margin-bottom: 25px;
-  margin-right: 25px;
-}
-
-/* Semua control container */
-.leaflet-control {
-  border: none !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(12px);
-  border-radius: 18px !important;
-  box-shadow: 
-    0 4px 20px rgba(0,0,0,0.15),
-    0 1px 4px rgba(0,0,0,0.08);
-  overflow: hidden;
-  transition: all 0.25s ease;
-}
-
-/* Hover glow */
-.leaflet-control:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 30px rgba(0,0,0,0.2),
-    0 3px 8px rgba(0,0,0,0.1);
-}
-
-/* Button di dalam control */
-.leaflet-control a {
-  background: transparent !important;
-  color: #222 !important;
-  border: none !important;
-  width: 42px;
-  height: 42px;
-  line-height: 42px !important;
-  transition: all 0.2s ease;
-}
-
-/* Hover effect tombol */
-.leaflet-control a:hover {
-  background: rgba(0,0,0,0.05) !important;
-}
-
-/* Zoom control khusus */
-.leaflet-control-zoom {
-  border-radius: 18px !important;
-}
-
-/* Geoman toolbar */
-.leaflet-pm-toolbar {
-  border-radius: 18px !important;
-  overflow: hidden;
-}
-
-/* Icon scale effect */
-.leaflet-pm-icon {
-  transition: transform 0.2s ease;
-}
-
-.leaflet-pm-icon:hover {
-  transform: scale(1.15);
-}
-
-/* Active state */
-.leaflet-pm-icon.active {
-  background: #111 !important;
-  color: white !important;
-}
-.leaflet-pm-icon.active:hover {
-  background: #222 !important;
-}
-
+/* ===== LOCATION LIST ===== */
 .location-list {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* card */
 .location-item {
   display: flex;
   align-items: center;
@@ -166,61 +62,74 @@ html, body, #root {
   border-radius: 20px;
 
   background: linear-gradient(145deg, #1c1c1c, #141414);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 
-  min-width: none;
+  min-width: 0;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .location-item:hover {
   background: #262626;
   transform: translateY(-2px);
-  box-shadow: 0 18px 35px rgba(0,0,0,0.6);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.6);
 }
 
-/* title */
 .location-item span {
   font-size: 18px;
   font-weight: 600;
-  color: #ffffff;
+  color: white;
   cursor: pointer;
 }
 
-/* action area */
+/* ===== ACTION BUTTONS ===== */
 .item-actions {
   display: flex;
   gap: 8px;
-  flex-shrink: 0; /* 🔥 penting supaya tombol tidak mengecil */
+  flex-shrink: 0;
 }
 
 .item-actions button {
   width: 42px;
   height: 42px;
-  border-radius: 12px;
+
   border: none;
+  border-radius: 12px;
+
   cursor: pointer;
 
   background: #2c2c2c;
   color: white;
-  transition: 0.2s ease;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .item-actions button:hover {
   background: #4f8cff;
+  transform: scale(1.05);
 }
 
-
-/* edit input */
+/* ===== EDIT INPUT ===== */
 .edit-input {
   flex: 1;
-  min-width: 0; /* 🔥 WAJIB untuk flex child */
+  min-width: 0;
   max-width: 100%;
 
+  padding: 8px 14px;
+
   background: #2c2c2c;
+  color: white;
+
   border: 2px solid #4f8cff;
   border-radius: 14px;
-  padding: 8px 14px;
-  color: white;
+
   outline: none;
+
   font-size: 15px;
 }
 
@@ -228,46 +137,544 @@ html, body, #root {
   box-shadow: 0 0 0 2px #4f8cff;
 }
 
+/* ===== MAP CONTROL POSITIONING ===== */
+.leaflet-top.leaflet-right,
+.leaflet-top.leaflet-left {
+  margin-top: 24px;
+}
 
-/* edit buttons */
-.edit-buttons {
+.leaflet-right {
+  margin-right: 24px;
+}
+
+.leaflet-left {
+  margin-left: 24px;
+}
+
+/* ===== GLOBAL CONTROL STYLE ===== */
+.leaflet-control-zoom,
+.leaflet-control-layers,
+.leaflet-pm-toolbar {
+  border: none !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.08) !important;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.leaflet-control-zoom:hover,
+.leaflet-control-layers:hover,
+.leaflet-pm-toolbar:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.16),
+    0 6px 14px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ===== RESET DEFAULT LEAFLET ===== */
+.leaflet-bar {
+  border: none !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ===== CONTROL BUTTONS ===== */
+.leaflet-control-zoom a,
+.leaflet-control-layers label{
+  width: 48px !important;
+  height: 48px !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  border: none !important;
+  border-radius: 14px !important;
+
+  background: #f5f5f5 !important;
+  color: #111 !important;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover,
+.leaflet-control-layers label:hover,
+.leaflet-pm-toolbar .button-container:hover {
+  background: rgba(0, 0, 0, 0.06) !important;
+  transform: scale(1.05);
+}
+
+/* ===== ACTIVE STATE ===== */
+.leaflet-pm-icon.active {
+  background: #111 !important;
+  color: white !important;
+}
+
+.leaflet-pm-icon.active:hover {
+  background: #222 !important;
+}
+
+/* ===== ZOOM SEPARATOR ===== */
+.leaflet-control-zoom a:first-child {
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+/* ===== LAYERS CONTROL ===== */
+.leaflet-control-layers {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 5px !important;
+}
+
+.leaflet-control-layers-selector,
+.leaflet-control-layers-toggle {
+  display: none !important;
+}
+
+.leaflet-control-layers label span {
+  display: none;
+}
+
+.leaflet-control-layers-base {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.leaflet-control-layers-overlays {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.edit-buttons button {
-  padding: 6px 14px;
-  border-radius: 12px;
+/* ===== CUSTOM ICONS ===== */
+.leaflet-control-layers-base label:nth-child(1) {
+  background: url('/icons/sun.png') no-repeat center !important;
+  background-size: 20px !important;
+}
+
+.leaflet-control-layers-base label:nth-child(2) {
+  background: url('/icons/moon.png') no-repeat center !important;
+  background-size: 20px !important;
+}
+
+.leaflet-control-layers-overlays label:nth-child(1) {
+  background: url('/icons/fasi.png') no-repeat center !important;
+  background-size: 24px !important;
+}
+
+.leaflet-control-layers-overlays label:nth-child(2) {
+  background: url('/icons/fasilitas.png') no-repeat center !important;
+  background-size: 24px !important;
+}
+
+/* ===== GEOMAN ===== */
+.leaflet-pm-icon {
+  transition: transform 0.2s ease;
+}
+
+.leaflet-pm-icon:hover {
+  transform: scale(1.08);
+}
+
+/* ===== MAP LABELS ===== */
+.label-kecamatan {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  color: white;
+  font-weight: bold;
+
+  text-shadow: #000 0 0 10px;
+
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.label-kota {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+
+  text-shadow: #000 0 0 15px;
+
+  opacity: 0.2;
+}
+
+/* ===== GEOMAN UNIFIED TOOLBAR ===== */
+.leaflet-pm-toolbar {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+}
+
+/* Semua tombol Geoman jadi satu stack */
+.leaflet-pm-toolbar .button-container {
+  width: 48px !important;
+  height: 48px !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  background: #f5f5f5 !important;
+
+  border-bottom: 1px solid #e5e5e5 !important;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Hover */
+.leaflet-pm-toolbar .button-container:hover {
+  background: rgba(0,0,0,0.06) !important;
+  transform: scale(1.03);
+}
+
+/* Tombol terakhir ga perlu garis */
+.leaflet-pm-toolbar .button-container:last-child {
+  border-bottom: none !important;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 280px;
+    padding: 18px;
+  }
+
+  .leaflet-control-zoom a,
+  .leaflet-control-layers label,
+  .leaflet-pm-toolbar .button-container {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .leaflet-top.leaflet-right,
+  .leaflet-top.leaflet-left {
+    margin-top: 16px;
+  }
+
+  .leaflet-right {
+    margin-right: 16px;
+  }
+
+  .leaflet-left {
+    margin-left: 16px;
+  }
+}
+
+/* ===== MOBILE SIDEBAR TOGGLE ===== */
+.mobile-menu-btn {
+  display: none;
+}
+
+.sidebar-close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 2000;
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: rgba(15,15,15,0.9);
+    color: white;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+
+    z-index: 3000;
+
+    transition: left 0.3s ease;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-close {
+    display: block;
+
+    align-self: flex-end;
+
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 24px;
+
+    cursor: pointer;
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-close {
+    display: block;
+
+    background: none;
+    border: none;
+
+    color: white;
+    font-size: 24px;
+
+    cursor: pointer;
+  }
+}
+
+/* =========================
+   FLOATING MAP MENU
+   ========================= */
+
+.map-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  font-family: inherit;
+}
+
+/* =========================
+   CLOSED BUBBLE BUTTON
+   ========================= */
+.menu-bubble {
+  width: 58px;
+  height: 58px;
   border: none;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  font-size: 24px;
   cursor: pointer;
-  font-weight: 600;
+  transition: all 0.25s ease;
 }
 
-.edit-buttons button:first-child {
-  background: #ffffff;
-  color: #000000;
+.menu-bubble:hover {
+  transform: scale(1.05);
 }
 
-.edit-buttons button:last-child {
-  background: #2a2a2a;
-  color: white;
+/* =========================
+   EXPANDED PANEL
+   ========================= */
+.map-menu.open {
+  width: 230px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 28px;
+  padding: 18px 18px 20px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: menuExpand 0.25s ease;
 }
 
-.distance-tooltip {
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
+/* =========================
+   CLOSE BUTTON
+   ========================= */
+.menu-close {
+  position: absolute;
+  left: -36px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 72px;
   border: none;
+  border-radius: 18px 0 0 18px;
+  background: rgba(220, 220, 220, 0.95);
+  cursor: pointer;
+  font-size: 18px;
 }
 
-.coord-tooltip {
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 13px;
+/* =========================
+   THEME SWITCH
+   ========================= */
+.theme-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border-radius: 0px;
+  border: 1px solid #ddd;
+}
+
+/* =========================
+   THEME BUTTON IMAGE
+   ========================= */
+
+.theme-switch button {
+  height: 58px;
+  border: none;
+  background: #f3f3f3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.theme-switch button.active {
+  background: white;
+  box-shadow: inset 0 0 0 3px #111;
+}
+
+/* ICON IMAGE */
+.theme-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Optional hover */
+.theme-switch button:hover .theme-icon {
+  transform: scale(1.08);
+  transition: transform 0.2s ease;
+}
+
+/* =========================
+   TOGGLE ROWS
+   ========================= */
+.map-menu label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  padding: 6px 2px;
   font-weight: 500;
+}
+
+/* =========================
+   IOS STYLE TOGGLE
+   ========================= */
+.map-menu input[type="checkbox"] {
+  appearance: none;
+  width: 42px;
+  height: 24px;
+  background: #d9d9d9;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.map-menu input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.25s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.map-menu input[type="checkbox"]:checked {
+  background: #111;
+}
+
+.map-menu input[type="checkbox"]:checked::before {
+  transform: translateX(18px);
+}
+
+/* =========================
+   ANIMATION
+   ========================= */
+@keyframes menuExpand {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+@media (max-width: 768px) {
+  .map-menu {
+    top: 14px;
+    right: 14px;
+  }
+
+  .map-menu.open {
+    width: 210px;
+    padding: 16px;
+  }
+
+  .theme-switch button {
+    height: 52px;
+  }
+
+  .map-menu label {
+    font-size: 15px;
+  }
 }

@@ -7,6 +7,8 @@ type Props = {
   onFlyTo: (coords: LatLngTuple) => void;
   onDelete: (id: string) => void;
   onEdit: (id: string, newName: string) => void;
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Sidebar({
@@ -14,16 +16,28 @@ export default function Sidebar({
   onFlyTo,
   onDelete,
   onEdit,
+  sidebarOpen,
+  setSidebarOpen,
 }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editedName, setEditedName] = useState("");
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+      <div className="sidebar-header">
       <h2>Daftar Lokasi</h2>
+
+      <button
+        className="sidebar-close"
+        onClick={() => setSidebarOpen(false)}
+      >
+        ✕
+      </button>
+    </div>
 
       {userMarkers.map((marker) => (
         <div key={marker.id} className="location-item">
+
           {editingId === marker.id ? (
             <>
               <input
@@ -56,15 +70,15 @@ export default function Sidebar({
             </>
           ) : (
             <>
-              <span onClick={() => onFlyTo(marker.geocode)}>
-                {marker.popUp}
+              <span onClick={() => {onFlyTo(marker.position); setSidebarOpen(false);}}>
+                {marker.name}
               </span>
 
               <div className="item-actions">
                 <button
                   onClick={() => {
                     setEditingId(marker.id);
-                    setEditedName(marker.popUp);
+                    setEditedName(marker.name);
                   }}
                 >
                   ✏

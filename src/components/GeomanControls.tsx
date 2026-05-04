@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import type { LatLngTuple } from "leaflet";
+import L, { type LatLngTuple } from "leaflet";
 import type { UserMarker } from "../types/marker";
 
 type Props = {
@@ -20,10 +20,14 @@ export default function GeomanControls({ setUserMarkers }: Props) {
     const container = map.getContainer();
     const disableContextMenu = (e: MouseEvent) =>
       e.preventDefault();
-    container.addEventListener("contextmenu", disableContextMenu);
+
+    container.addEventListener(
+      "contextmenu",
+      disableContextMenu
+    );
 
     leafletMap.pm.addControls({
-      position: "topright",
+      position: "topleft",
       drawPolyline: true,
       drawMarker: true,
       editMode: true,
@@ -31,10 +35,10 @@ export default function GeomanControls({ setUserMarkers }: Props) {
     });
 
     leafletMap.pm.setGlobalOptions({
-    finishOn: "contextmenu", // right click untuk finish
+      finishOn: "contextmenu",
     });
 
-
+    // ===== CREATE =====
     const handleCreate = (e: any) => {
       if (e.shape === "Marker") {
         const { lat, lng } = e.layer.getLatLng();
@@ -43,11 +47,13 @@ export default function GeomanControls({ setUserMarkers }: Props) {
           ...prev,
           {
             id: crypto.randomUUID(),
-            geocode: [lat, lng] as LatLngTuple,
+            name: "Lokasi Baru",
+            position: [lat, lng] as LatLngTuple,
             popUp: "Lokasi Baru",
           },
         ]);
 
+        // 🔥 Hapus layer Geoman asli, React Marker yang handle
         map.removeLayer(e.layer);
       }
 
@@ -59,14 +65,38 @@ export default function GeomanControls({ setUserMarkers }: Props) {
       }
     };
 
+    // ===== REMOVE =====
+    const handleRemove = (e: any) => {
+      if (e.layer instanceof L.Marker) {
+        const { lat, lng } = e.layer.getLatLng();
+
+        setUserMarkers((prev) =>
+          prev.filter((marker) => {
+            const [mLat, mLng] = marker.position;
+
+            // 🔥 toleransi float compare
+            return !(
+              Math.abs(mLat - lat) < 0.000001 &&
+              Math.abs(mLng - lng) < 0.000001
+            );
+          })
+        );
+      }
+    };
+
+    // ===== EVENTS =====
     map.on("pm:create", handleCreate);
+    map.on("pm:remove", handleRemove);
 
     return () => {
       map.off("pm:create", handleCreate);
+      map.off("pm:remove", handleRemove);
+
       container.removeEventListener(
         "contextmenu",
         disableContextMenu
       );
+
       leafletMap.pm.removeControls();
     };
   }, [map, setUserMarkers]);
