@@ -200,15 +200,15 @@ export default function MapView({
     useState(false);
 
   const [showBatas, setShowBatas] =
-    useState(false);
+    useState(true);
 
   const [
     showFasilitas,
     setShowFasilitas,
-  ] = useState(false);
+  ] = useState(true);
 
   const [showCluster, setShowCluster] =
-    useState(false);
+    useState(true);
 
   useEffect(() => {
     fetch("/data/Batas_Kota_Bekasi.geojson")
