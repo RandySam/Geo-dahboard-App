@@ -241,9 +241,6 @@ export default function MapView({
         width: "100%",
       }}
     >
-      {/* =========================
-          MENU
-         ========================= */}
       <MapMenu
         darkMode={darkMode}
         setDarkMode={setDarkMode}
@@ -259,9 +256,6 @@ export default function MapView({
         }
       />
 
-      {/* =========================
-          FIXED PANES
-         ========================= */}
       <Pane
         name="clusterPane"
         style={{ zIndex: 200 }}
@@ -385,9 +379,6 @@ export default function MapView({
           />
         )}
 
-      {/* =========================
-          BATAS
-         ========================= */}
       {showBatas &&
         batasData && (
           <GeoJSON
@@ -429,9 +420,6 @@ export default function MapView({
           />
         )}
 
-      {/* =========================
-          FASILITAS
-         ========================= */}
       {showFasilitas &&
         fasilitasData && (
           <GeoJSON
@@ -540,9 +528,6 @@ export default function MapView({
           />
         )}
 
-      {/* =========================
-          HELPERS
-         ========================= */}
       <ZoomLabelController />
       <ZoomLabelDynamic />
       <KotaLabel data={batasData} />
@@ -554,18 +539,12 @@ export default function MapView({
         <FitBounds data={batasData} />
       )}
 
-      {/* =========================
-          GEOMAN
-         ========================= */}
       <GeomanControls
         setUserMarkers={
           setUserMarkers
         }
       />
 
-      {/* =========================
-          USER MARKERS
-         ========================= */}
       {userMarkers.map(
         (marker) => (
           <Marker

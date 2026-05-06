@@ -16,7 +16,6 @@ export default function GeomanControls({ setUserMarkers }: Props) {
     const leafletMap = map as any;
     if (!leafletMap.pm) return;
 
-    // 🚫 Disable default browser right click
     const container = map.getContainer();
     const disableContextMenu = (e: MouseEvent) =>
       e.preventDefault();
@@ -30,15 +29,15 @@ export default function GeomanControls({ setUserMarkers }: Props) {
       position: "topleft",
       drawPolyline: true,
       drawMarker: true,
-      editMode: true,
+      editMode: false,
       removalMode: true,
+      rotateMode: false,
     });
 
     leafletMap.pm.setGlobalOptions({
       finishOn: "contextmenu",
     });
 
-    // ===== CREATE =====
     const handleCreate = (e: any) => {
       if (e.shape === "Marker") {
         const { lat, lng } = e.layer.getLatLng();
@@ -53,7 +52,6 @@ export default function GeomanControls({ setUserMarkers }: Props) {
           },
         ]);
 
-        // 🔥 Hapus layer Geoman asli, React Marker yang handle
         map.removeLayer(e.layer);
       }
 
@@ -65,7 +63,6 @@ export default function GeomanControls({ setUserMarkers }: Props) {
       }
     };
 
-    // ===== REMOVE =====
     const handleRemove = (e: any) => {
       if (e.layer instanceof L.Marker) {
         const { lat, lng } = e.layer.getLatLng();
@@ -84,7 +81,6 @@ export default function GeomanControls({ setUserMarkers }: Props) {
       }
     };
 
-    // ===== EVENTS =====
     map.on("pm:create", handleCreate);
     map.on("pm:remove", handleRemove);
 

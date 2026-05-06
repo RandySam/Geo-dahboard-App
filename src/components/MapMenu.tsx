@@ -36,9 +36,6 @@ export default function MapMenu({
         open ? "open" : ""
       }`}
     >
-      {/* =========================
-          CLOSED BUBBLE
-         ========================= */}
       {!open ? (
         <button
           className="menu-bubble"
@@ -51,9 +48,6 @@ export default function MapMenu({
         </button>
       ) : (
         <>
-          {/* =========================
-              CLOSE BUTTON
-             ========================= */}
           <button
             className="menu-close"
             onClick={() =>
@@ -64,9 +58,6 @@ export default function MapMenu({
             ◀
           </button>
 
-          {/* =========================
-              THEME SWITCH
-             ========================= */}
           <div className="theme-switch">
             <button
               className={
@@ -105,9 +96,6 @@ export default function MapMenu({
             </button>
           </div>
 
-          {/* =========================
-              TOGGLES
-             ========================= */}
           <label>
             <span>
               Batas Wilayah
