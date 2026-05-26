@@ -1,97 +1,356 @@
-import { useState } from "react";
-import type { UserMarker } from "../types/marker";
-import type { LatLngTuple } from "leaflet";
+import {
+  BarChart3,
+  ChevronDown,
+  Layers3,
+  LayoutGrid,
+} from "lucide-react";
+
+import {
+  useState,
+} from "react";
+
+import AnalyticsPanel from "./AnalyticsPanel";
+
+import LayerPanel from "./LayerPanel";
+
+import OverviewPanel from "./OverviewPanel";
 
 type Props = {
-  userMarkers: UserMarker[];
-  onFlyTo: (coords: LatLngTuple) => void;
-  onDelete: (id: string) => void;
-  onEdit: (id: string, newName: string) => void;
-  sidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  totalKecamatan: number;
+
+  categoriesStat: {
+    id: string;
+
+    name: string;
+
+    total: number;
+  }[];
+
+  showBatas: boolean;
+
+  setShowBatas: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+
+  showFasilitas: boolean;
+
+  setShowFasilitas: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+
+  showCluster: boolean;
+
+  setShowCluster: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+
+  selectedCategories: string[];
+
+  setSelectedCategories: React.Dispatch<
+    React.SetStateAction<
+      string[]
+    >
+  >;
+
+  districtDetails: any[];
+
+  compareRegions: any[];
+
+  comparisonResult: any;
+
+  barChartData: any[];
+
+  pieChartData: any[];
+
+  setSelectedCoords: React.Dispatch<
+    React.SetStateAction<
+      [number, number] | null
+    >
+  >;
+
+  onCompareRegion: (
+    regionA: string,
+    regionB: string
+  ) => void;
 };
 
+type PanelType =
+  | "overview"
+  | "layers"
+  | "analytics";
+
 export default function Sidebar({
-  userMarkers,
-  onFlyTo,
-  onDelete,
-  onEdit,
-  sidebarOpen,
-  setSidebarOpen,
+  totalKecamatan,
+
+  categoriesStat,
+
+  showBatas,
+  setShowBatas,
+
+  showFasilitas,
+  setShowFasilitas,
+
+  showCluster,
+  setShowCluster,
+
+  selectedCategories,
+  setSelectedCategories,
+
+  districtDetails,
+
+  compareRegions,
+
+  comparisonResult,
+
+  barChartData,
+
+  pieChartData,
+
+  setSelectedCoords,
+
+  onCompareRegion,
 }: Props) {
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editedName, setEditedName] = useState("");
+  const [
+    activePanel,
+    setActivePanel,
+  ] = useState<PanelType>(
+    "overview"
+  );
+
+  const [
+    showDropdown,
+    setShowDropdown,
+  ] = useState(false);
+
+  /* =========================
+     PANEL CONFIG
+  ========================= */
+
+  const panelConfig = {
+    overview: {
+      label: "Overview",
+
+      icon: LayoutGrid,
+    },
+
+    layers: {
+      label: "Layers",
+
+      icon: Layers3,
+    },
+
+    analytics: {
+      label: "Analytics",
+
+      icon: BarChart3,
+    },
+  };
+
+  const ActiveIcon =
+    panelConfig[
+      activePanel
+    ].icon;
 
   return (
-    <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-      <div className="sidebar-header">
-      <h2>Daftar Lokasi</h2>
+    <aside className="sidebar-modern">
 
-      <button
-        className="sidebar-close"
-        onClick={() => setSidebarOpen(false)}
-      >
-        ✕
-      </button>
-    </div>
+      {/* =========================
+          PANEL SELECTOR
+      ========================= */}
 
-      {userMarkers.map((marker) => (
-        <div key={marker.id} className="location-item">
+      <div className="sidebar-selector">
 
-          {editingId === marker.id ? (
-            <>
-              <input
-                className="edit-input"
-                value={editedName}
-                autoFocus
-                onChange={(e) => setEditedName(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    onEdit(marker.id, editedName);
-                    setEditingId(null);
-                  }
-                }}
-              />
+        <button
+          className="sidebar-selector-btn"
+          onClick={() =>
+            setShowDropdown(
+              !showDropdown
+            )
+          }
+        >
 
-              <div className="item-actions">
-                <button
-                  onClick={() => {
-                    onEdit(marker.id, editedName);
-                    setEditingId(null);
-                  }}
-                >
-                  ✔
-                </button>
+          <div className="sidebar-selector-left">
 
-                <button onClick={() => setEditingId(null)}>
-                  ✖
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <span onClick={() => {onFlyTo(marker.position); setSidebarOpen(false);}}>
-                {marker.name}
-              </span>
+            <ActiveIcon
+              size={28}
+            />
 
-              <div className="item-actions">
-                <button
-                  onClick={() => {
-                    setEditingId(marker.id);
-                    setEditedName(marker.name);
-                  }}
-                >
-                  ✏
-                </button>
+            <span>
+              {
+                panelConfig[
+                  activePanel
+                ].label
+              }
+            </span>
 
-                <button onClick={() => onDelete(marker.id)}>
-                  🗑
-                </button>
-              </div>
-            </>
-          )}
-        </div>
-      ))}
-    </div>
+          </div>
+
+          <ChevronDown
+            size={24}
+          />
+
+        </button>
+
+        {showDropdown && (
+
+          <div className="sidebar-dropdown-menu">
+
+            {(
+              Object.keys(
+                panelConfig
+              ) as PanelType[]
+            ).map(
+              (panel) => {
+
+                const Icon =
+                  panelConfig[
+                    panel
+                  ].icon;
+
+                return (
+                  <button
+                    key={panel}
+                    className="sidebar-dropdown-item"
+                    onClick={() => {
+
+                      setActivePanel(
+                        panel
+                      );
+
+                      setShowDropdown(
+                        false
+                      );
+                    }}
+                  >
+
+                    <div className="sidebar-selector-left">
+
+                      <Icon
+                        size={
+                          24
+                        }
+                      />
+
+                      <span>
+                        {
+                          panelConfig[
+                            panel
+                          ]
+                            .label
+                        }
+                      </span>
+
+                    </div>
+
+                  </button>
+                );
+              }
+            )}
+
+          </div>
+
+        )}
+
+      </div>
+
+      {/* =========================
+          ACTIVE PANEL
+      ========================= */}
+
+      <div className="sidebar-panel-content">
+
+        {/* =========================
+            OVERVIEW
+        ========================= */}
+
+        {activePanel ===
+          "overview" && (
+
+          <OverviewPanel
+            totalKecamatan={
+              totalKecamatan
+            }
+            categoriesStat={
+              categoriesStat
+            }
+          />
+
+        )}
+
+        {/* =========================
+            LAYERS
+        ========================= */}
+
+        {activePanel ===
+          "layers" && (
+
+          <LayerPanel
+            showBatas={
+              showBatas
+            }
+            setShowBatas={
+              setShowBatas
+            }
+            showFasilitas={
+              showFasilitas
+            }
+            setShowFasilitas={
+              setShowFasilitas
+            }
+            showCluster={
+              showCluster
+            }
+            setShowCluster={
+              setShowCluster
+            }
+            selectedCategories={
+              selectedCategories
+            }
+            setSelectedCategories={
+              setSelectedCategories
+            }
+            categoriesStat={
+              categoriesStat
+            }
+          />
+
+        )}
+
+        {/* =========================
+            ANALYTICS
+        ========================= */}
+
+        {activePanel ===
+          "analytics" && (
+
+          <AnalyticsPanel
+            districtDetails={
+              districtDetails
+            }
+            compareRegions={
+              compareRegions
+            }
+            comparisonResult={
+              comparisonResult
+            }
+            barChartData={
+              barChartData
+            }
+            pieChartData={
+              pieChartData
+            }
+            setSelectedCoords={
+              setSelectedCoords
+            }
+            onCompareRegion={
+              onCompareRegion
+            }
+          />
+
+        )}
+
+      </div>
+
+    </aside>
   );
 }

@@ -1,20 +1,38 @@
-import { useEffect } from "react";
-import { useMap } from "react-leaflet";
+import {
+  useEffect,
+} from "react";
+
+import {
+  useMap,
+} from "react-leaflet";
 
 export default function DisableContextMenu() {
   const map = useMap();
 
   useEffect(() => {
-    const container = map.getContainer();
+    const container =
+      map.getContainer();
 
-    const disable = (e: MouseEvent) => {
-      e.preventDefault();
-    };
+    const disableContextMenu =
+      (
+        e: MouseEvent
+      ) => {
+        e.preventDefault();
+      };
 
-    container.addEventListener("contextmenu", disable);
+    container.addEventListener(
+      "contextmenu",
+      disableContextMenu
+    );
 
+    /* =====================
+       CLEANUP
+       ===================== */
     return () => {
-      container.removeEventListener("contextmenu", disable);
+      container.removeEventListener(
+        "contextmenu",
+        disableContextMenu
+      );
     };
   }, [map]);
 

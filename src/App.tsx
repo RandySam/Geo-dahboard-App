@@ -1,62 +1,26 @@
-import { useState } from "react";
-import type { LatLngTuple } from "leaflet";
-import type { UserMarker } from "./types/marker";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Sidebar from "./components/Sidebar";
-import MapView from "./components/MapView";
+import LandingPage from "./pages/LandingPage";
+import DashboardPage from "./DashboardPage";
 
 export default function App() {
-  const [userMarkers, setUserMarkers] = useState<UserMarker[]>([]);
-  const [selectedCoords, setSelectedCoords] =
-    useState<LatLngTuple | null>(null);
-
-  // 🔥 MOBILE SIDEBAR STATE
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="app-container">
-      {/* ===== MOBILE MENU BUTTON ===== */}
-      <button
-        className="mobile-menu-btn"
-        onClick={() => setSidebarOpen(true)}
-      >
-        ☰
-      </button>
+    <BrowserRouter>
+      <Routes>
 
-      <Sidebar
-        userMarkers={userMarkers}
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
+        {/* Landing Page */}
+        <Route
+          path="/"
+          element={<LandingPage />}
+        />
 
-        onFlyTo={(coords) => {
-          setSelectedCoords(coords);
+        {/* Dashboard */}
+        <Route
+          path="/dashboard"
+          element={<DashboardPage />}
+        />
 
-          // 🔥 AUTO CLOSE DI MOBILE SETELAH PILIH
-          setSidebarOpen(false);
-        }}
-
-        onDelete={(id) =>
-          setUserMarkers((prev) =>
-            prev.filter((m) => m.id !== id) // 🔥 FIX pakai id
-          )
-        }
-
-        onEdit={(id, newName) =>
-          setUserMarkers((prev) =>
-            prev.map((m) =>
-              m.id === id
-                ? { ...m, name: newName }
-                : m
-            )
-          )
-        }
-      />
-
-      <MapView
-        userMarkers={userMarkers}
-        setUserMarkers={setUserMarkers}
-        selectedCoords={selectedCoords}
-      />
-    </div>
+      </Routes>
+    </BrowserRouter>
   );
 }
