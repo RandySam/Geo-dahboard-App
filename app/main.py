@@ -9,6 +9,7 @@ import app.models  # noqa: F401 — Memaksa registrasi semua model SQLAlchemy ke
 from app.routers.kecamatan_routers import router as kecamatan_router
 from app.routers.fasilitas_routers import router as fasilitas_router
 from app.routers.analisis_routers import router as analisis_router
+from app.routers.dataset_router import router as dataset_router
 
 # ──────────────────────────────────────────────────────────────────────────
 # DDL AUTOMATION: Buat semua tabel + skema PostGIS jika belum ada di DB
@@ -63,7 +64,7 @@ app.add_middleware(
 app.include_router(kecamatan_router)
 app.include_router(fasilitas_router)
 app.include_router(analisis_router)
-
+app.include_router(dataset_router)
 
 # ──────────────────────────────────────────────────────────────────────────
 # HEALTH CHECK / ROOT ENDPOINT
