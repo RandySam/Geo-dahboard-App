@@ -44,7 +44,7 @@ body,
   display: grid;
 
   grid-template-columns:
-    500px 1fr;
+    380px 1fr;
 
   grid-template-rows:
     100px 1fr;
@@ -69,7 +69,7 @@ body,
 
   padding: 0 22px;
 
-  background: #355872;
+  background: #0E3B78;
 
   z-index: 2000;
 
@@ -1637,38 +1637,6 @@ body,
     transform 0.3s ease;
 }
 
-.hero-image-card:hover img {
-  transform: scale(1.05);
-}
-
-.hero-image-card span {
-  position: absolute;
-
-  left: 14px;
-  bottom: 14px;
-
-  padding:
-    8px 14px;
-
-  border-radius: 999px;
-
-  background:
-    rgba(
-      0,
-      0,
-      0,
-      0.55
-    );
-
-  color: white;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  backdrop-filter: blur(6px);
-}
-
 .hero-image-large img {
   width: 100%;
 
@@ -1679,34 +1647,6 @@ body,
   border-radius: 28px;
 }
 
-.hero-image-large img {
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  border-radius: 28px;
-}
-
-.hero-image-card {
-  position: relative;
-
-  overflow: hidden;
-
-  border-radius: 24px;
-}
-
-.hero-image-card img {
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  transition:
-    transform 0.3s ease;
-}
 
 .hero-image-card:hover img {
   transform: scale(1.05);
@@ -2146,6 +2086,11 @@ body,
     );
 }
 
+.footer-contact-item a {
+  text-decoration: none;
+  color: white;
+}
+
 .footer-bottom {
   height: 70px;
 
@@ -2196,17 +2141,12 @@ body,
   background: #f3f6fb;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.mobile-menu-btn {
+  display: none;
+}
 
-@media (max-width: 768px) {
-
-  .compare-card-grid {
-    grid-template-columns:
-      1fr;
-  }
-
+.legend-toggle-btn {
+  display: none;
 }
 
 /* =========================
@@ -2232,16 +2172,550 @@ body,
 /* =========================
    RESPONSIVE
 ========================= */
+@media (max-width: 1280px) {
+
+  .sidebar-selector-btn {
+    height: 64px;
+  }
+
+  .sidebar-selector-left span {
+    font-size: 18px;
+  }
+
+  .overview-header h2 {
+    font-size: 22px;
+  }
+
+  .overview-total-number {
+    font-size: 48px;
+  }
+
+  .overview-grid-total {
+    font-size: 36px;
+  }
+
+    /* =========================
+     HEADER
+  ========================= */
+
+  .header {
+    padding: 0 16px;
+  }
+
+  .header-left {
+    gap: 16px;
+  }
+
+  .header-brand {
+    gap: 12px;
+  }
+
+  .header-brand h1 {
+    font-size: 24px;
+  }
+
+  .header-brand p {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .theme-toggle {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+  }
+
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* =========================
+     SIDEBAR
+  ========================= */
+
+  .sidebar-modern {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .layer-panel {
+    gap: 14px;
+  }
+
+  .layer-section {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .layer-section h3 {
+    font-size: 18px;
+  }
+
+  .layer-item span {
+    font-size: 14px;
+  }
+
+  /* =========================
+     DETAIL PANEL
+  ========================= */
+
+  .detail-kecamatan {
+    padding: 18px;
+  }
+
+  .detail-header h3 {
+    font-size: 18px;
+  }
+
+  .detail-card {
+    padding: 18px;
+  }
+
+  .detail-card-header h4 {
+    font-size: 20px;
+  }
+
+  .summary-value {
+    font-size: 18px;
+  }
+
+  .detail-category-item span,
+  .detail-category-item strong {
+    font-size: 14px;
+  }
+
+  /* =========================
+     COMPARE PANEL
+  ========================= */
+
+  .compare-region {
+    padding: 18px;
+  }
+
+  .compare-region-header h3 {
+    font-size: 18px;
+  }
+
+  .compare-region-header p {
+    font-size: 13px;
+  }
+
+  .compare-select {
+    height: 56px;
+    font-size: 15px;
+  }
+
+  .compare-button {
+    height: 54px;
+    font-size: 16px;
+  }
+
+  .compare-card {
+    padding: 18px;
+  }
+
+  .compare-card h4 {
+    font-size: 18px;
+  }
+
+  .compare-item strong {
+    font-size: 15px;
+  }
+
+  .compare-summary {
+    padding: 18px;
+  }
+
+  .compare-summary h4 {
+    font-size: 18px;
+  }
+
+  .compare-summary p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* =========================
+     LEGEND
+  ========================= */
+
+  .legend-panel {
+    width: 180px;
+    right: 12px;
+    bottom: 12px;
+    gap: 12px;
+  }
+
+  .legend-section {
+    padding: 14px 16px;
+  }
+
+  .legend-section h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .legend-item {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .legend-item span {
+    font-size: 12px;
+  }
+
+  .legend-color {
+    width: 14px;
+    height: 14px;
+  }
+
+}
 
 @media (max-width: 1024px) {
+
+  /* =========================
+     APP LAYOUT
+  ========================= */
+
   .app-layout {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 260px 1fr;
+  }
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  .header {
+    padding: 0 14px;
+  }
+
+  .header-left {
+    gap: 12px;
+  }
+
+  .header-brand {
+    gap: 10px;
+  }
+
+  .header-brand h1 {
+    font-size: 20px;
+  }
+
+  .header-brand p {
+    font-size: 11px;
+  }
+
+  .theme-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  /* =========================
+     SIDEBAR
+  ========================= */
+
+  .sidebar-modern {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .sidebar-selector-btn {
+    height: 58px;
+    padding: 0 14px;
+  }
+
+  .sidebar-selector-left {
+    gap: 10px;
+  }
+
+  .sidebar-selector-left span {
+    font-size: 16px;
+  }
+
+  /* =========================
+     OVERVIEW
+  ========================= */
+
+  .overview-header h2 {
+    font-size: 20px;
+  }
+
+  .overview-header span {
+    font-size: 11px;
+  }
+
+  .overview-total-card {
+    min-height: 120px;
+  }
+
+  .overview-total-number {
+    font-size: 42px;
+  }
+
+  .overview-total-label {
+    font-size: 13px;
+  }
+
+  .overview-grid-card {
+    min-height: 95px;
+  }
+
+  .overview-grid-total {
+    font-size: 28px;
+  }
+
+  .overview-grid-label {
+    font-size: 12px;
+  }
+
+  /* =========================
+     LAYER PANEL
+  ========================= */
+
+  .layer-section {
+    padding: 16px;
+  }
+
+  .layer-section h3 {
+    font-size: 16px;
+  }
+
+  .layer-item span {
+    font-size: 13px;
+  }
+
+  /* =========================
+     DETAIL
+  ========================= */
+
+  .detail-kecamatan {
+    padding: 16px;
+  }
+
+  .detail-header h3 {
+    font-size: 16px;
+  }
+
+  .detail-card {
+    padding: 16px;
+  }
+
+  .detail-card-header h4 {
+    font-size: 18px;
+  }
+
+  .summary-value {
+    font-size: 16px;
+  }
+
+  .detail-category-item span,
+  .detail-category-item strong {
+    font-size: 13px;
+  }
+
+  /* =========================
+     COMPARE
+  ========================= */
+
+  .compare-region {
+    padding: 16px;
+  }
+
+  .compare-region-header h3 {
+    font-size: 16px;
+  }
+
+  .compare-region-header p {
+    font-size: 12px;
+  }
+
+  .compare-select {
+    height: 52px;
+    font-size: 14px;
+  }
+
+  .compare-button {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  .compare-card {
+    padding: 16px;
+  }
+
+  .compare-card h4 {
+    font-size: 16px;
+  }
+
+  .compare-item strong {
+    font-size: 14px;
+  }
+
+  .compare-summary {
+    padding: 16px;
+  }
+
+  .compare-summary h4 {
+    font-size: 16px;
+  }
+
+  .compare-summary p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* =========================
+     LEGEND
+  ========================= */
+
+  /* =========================
+   LEGEND TOGGLE
+========================= */
+
+.legend-toggle-btn {
+    display: block;
+
+    position: absolute;
+
+    right: 12px;
+    bottom: 28px;
+
+    z-index: 6000;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 10px 16px;
+
+    background: #0E3B78;
+
+    color: #f5f3ef;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .legend-panel {
+    position: absolute;
+
+    right: 12px;
+    bottom: 70px;
+
+    width: 220px;
+
+    display: none !important;
+  }
+
+  .legend-panel.legend-open {
+    display: flex !important;
+  }
+
+.legend-section {
+  padding: 14px;
+}
+
+.legend-section h4 {
+  font-size: 13px;
+}
+
+.legend-item span {
+  font-size: 11px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+}
+
+  .features-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  /* =========================
+     APP LAYOUT
+  ========================= */
+
+  .app-layout {
+    grid-template-columns: 1fr;
+
+    grid-template-rows:
+      82px 1fr;
 
     grid-template-areas:
       "header"
       "map";
   }
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  .header {
+    padding: 0 12px;
+  }
+
+  .header-left {
+    gap: 10px;
+  }
+
+  .header-brand h1 {
+    font-size: 18px;
+  }
+
+  .header-brand p {
+    font-size: 10px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+  }
+
+  .mobile-menu-btn img {
+    width: 22px;
+    height: 22px;
+
+    object-fit: contain;
+
+    display: block;
+  }
+
+  .theme-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .back-button {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  /* =========================
+     SIDEBAR
+  ========================= */
 
   .sidebar-modern {
     position: fixed;
@@ -2249,13 +2723,441 @@ body,
     top: 82px;
     left: 0;
 
-    width: 320px;
+    width: 260px;
 
-    height:
-      calc(100vh - 82px);
+    height: calc(100vh - 82px);
 
     z-index: 3000;
+
+    padding: 12px;
+
+    overflow-y: auto;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.3s ease;
+
   }
+
+  .sidebar-open {
+  transform: translateX(0);
+  }
+
+  /* =========================
+     OVERVIEW
+  ========================= */
+
+  .overview-header h2 {
+    font-size: 18px;
+  }
+
+  .overview-total-number {
+    font-size: 36px;
+  }
+
+  .overview-grid-total {
+    font-size: 24px;
+  }
+
+  /* =========================
+     DETAIL
+  ========================= */
+
+  .detail-kecamatan,
+  .compare-region,
+  .chart-bar,
+  .chart-pie {
+    padding: 14px;
+  }
+
+  .detail-card-header h4 {
+    font-size: 16px;
+  }
+
+  .summary-value {
+    font-size: 14px;
+  }
+
+  /* =========================
+     COMPARE
+  ========================= */
+
+  .compare-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-select {
+    height: 48px;
+  }
+
+  .compare-button {
+    height: 48px;
+  }
+
+  /* =========================
+     LEGEND
+  ========================= */
+
+  .legend-panel {
+    width: 200px;
+
+    right: 12px;
+    bottom: 12px;
+
+    gap: 12px;
+  }
+
+  .legend-section {
+    padding: 18px;
+  }
+
+  .legend-section h4 {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .legend-item {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .legend-item span {
+    font-size: 12px;
+  }
+
+  .legend-color {
+    width: 14px;
+    height: 14px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  /* =========================
+     APP LAYOUT
+  ========================= */
+
+  .app-layout {
+    grid-template-rows:
+      72px 1fr;
+  }
+
+  /* =========================
+     HEADER
+  ========================= */
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .header-left {
+    gap: 8px;
+  }
+
+  .header-brand {
+    gap: 8px;
+  }
+
+  .header-brand h1 {
+    font-size: 12px;
+  }
+
+  .header-brand p {
+    display: none;
+  }
+
+  .back-button {
+    padding: 8px 10px;
+
+    font-size: 11px;
+  }
+
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+  }
+
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mobile-menu-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-menu-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* =========================
+     SIDEBAR
+  ========================= */
+
+  .sidebar-modern {
+    top: 72px;
+
+    width: 240px;
+
+    height:
+      calc(100vh - 72px);
+  }
+
+  /* =========================
+     OVERVIEW
+  ========================= */
+
+  .overview-header h2 {
+    font-size: 16px;
+  }
+
+  .overview-header span {
+    font-size: 10px;
+  }
+
+  .overview-total-card {
+    min-height: 90px;
+  }
+
+  .overview-total-number {
+    font-size: 30px;
+  }
+
+  .overview-total-label {
+    font-size: 11px;
+  }
+
+  .overview-grid-card {
+    min-height: 75px;
+  }
+
+  .overview-grid-total {
+    font-size: 20px;
+  }
+
+  .overview-grid-label {
+    font-size: 10px;
+  }
+
+  /* =========================
+     DETAIL
+  ========================= */
+
+  .detail-header h3,
+  .compare-region-header h3 {
+    font-size: 14px;
+  }
+
+  .detail-card-header h4 {
+    font-size: 14px;
+  }
+
+  .summary-value {
+    font-size: 13px;
+  }
+
+  .detail-category-item span,
+  .detail-category-item strong {
+    font-size: 11px;
+  }
+
+  /* =========================
+     COMPARE
+  ========================= */
+
+  .compare-card h4 {
+    font-size: 14px;
+  }
+
+  .compare-item strong {
+    font-size: 12px;
+  }
+
+  .compare-summary h4 {
+    font-size: 14px;
+  }
+
+  .compare-summary p {
+    font-size: 11px;
+  }
+
+  /* =========================
+     LEGEND
+  ========================= */
+
+  .legend-toggle-btn {
+    right: 10px;
+    bottom: 20px;
+
+    padding: 8px 14px;
+
+    font-size: 12px;
+  }
+
+  .legend-panel {
+    width: 180px;
+
+    right: 10px;
+    bottom: 60px;
+  }
+
+  .legend-section {
+    padding: 12px;
+  }
+
+  .legend-section h4 {
+    font-size: 12px;
+  }
+
+  .legend-item span {
+    font-size: 10px;
+  }
+
+  .legend-color {
+    width: 10px;
+    height: 10px;
+  }
+
+  .legend-close-btn {
+    height: 36px;
+
+    font-size: 12px;
+  }
+
+  /* =========================
+     LEAFLET
+  ========================= */
+
+  .leaflet-control-zoom a,
+  .leaflet-pm-toolbar
+  .button-container {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .leaflet-top.leaflet-left {
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+
+  /* =========================
+     LANDING PAGE
+  ========================= */
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    height: auto;
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navbar-logo h2 {
+    font-size: 18px;
+  }
+
+  .navbar-logo span {
+    font-size: 11px;
+  }
+
+  .navbar-button {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  /* HERO */
+
+  .hero {
+    padding: 20px 16px;
+  }
+
+  .hero-left h1 {
+    font-size: 32px;
+  }
+
+  .hero-left p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* SECTION */
+
+  .features-section,
+  .about-section {
+    padding: 60px 16px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+
+  /* TEAM */
+
+  .team-card {
+    padding: 24px;
+  }
+
+  .team-card h3 {
+    font-size: 22px;
+  }
+
+  .team-image {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* FOOTER */
+
+  .footer-content {
+    padding: 40px 16px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-brand h2 {
+    font-size: 26px;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .footer-about h3,
+  .footer-contact h3 {
+    font-size: 20px;
+  }
+
+  .footer-about p,
+  .footer-contact-item {
+    font-size: 14px;
+  }
+
+  .footer-bottom {
+    padding: 16px;
+    text-align: center;
+    height: auto;
+    font-size: 13px;
+  }
+
 }
 
 .theme-toggle svg {
@@ -2275,12 +3177,29 @@ body,
 
   z-index: 5000;
 
-  width: 240px;
+  width: 220px;
 
   display: flex;
   flex-direction: column;
 
   gap: 18px;
+}
+
+.legend-close-btn {
+  width: 100%;
+
+  height: 42px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #355872;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
 }
 
 .legend-section {
@@ -2345,3 +3264,221 @@ body,
 
   color: #355872;
 }
+
+/* =========================
+   HERO BUTTONS
+========================= */
+
+.hero-buttons {
+  margin-top: 34px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  flex-wrap: wrap;
+}
+
+.hero-button {
+  margin-top: 0;
+}
+
+.hero-button.secondary {
+  background: white;
+
+  color: #0E3B78;
+
+  border: 2px solid #0E3B78;
+}
+
+.hero-button.secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   DATASET MODAL
+========================= */
+
+.dataset-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.55
+    );
+
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  z-index: 10000;
+}
+
+.dataset-modal {
+  width: 100%;
+  max-width: 1100px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 28px;
+
+  box-shadow:
+    0 24px 60px
+    rgba(
+      0,
+      0,
+      0,
+      0.18
+    );
+}
+
+.dataset-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.dataset-title {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.dataset-title h2 {
+  color: #1B2B4B;
+
+  font-size: 30px;
+
+  font-weight: 800;
+}
+
+.dataset-close {
+  width: 44px;
+  height: 44px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #f2f5f8;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dataset-close:hover {
+  background: #e8edf2;
+}
+
+.dataset-modal-content {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 20px;
+}
+
+.dataset-card {
+  background: #f8fafc;
+
+  border:
+    1px solid #e5e7eb;
+
+  border-radius: 24px;
+
+  padding: 22px;
+}
+
+.dataset-card h3 {
+  margin-bottom: 12px;
+
+  color: #0E3B78;
+
+  font-size: 20px;
+
+  font-weight: 800;
+}
+
+.dataset-card p {
+  margin-bottom: 14px;
+
+  line-height: 1.8;
+
+  color: #6B7280;
+}
+
+.dataset-card ul {
+  padding-left: 20px;
+}
+
+.dataset-card li {
+  margin-bottom: 8px;
+
+  color: #374151;
+}
+
+.dataset-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+DATASET DOWNLOAD BUTTON
+========================= */
+
+.dataset-download {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+
+margin-top: 16px;
+
+padding: 10px 18px;
+
+border-radius: 12px;
+
+background: #0E3B78;
+color: white;
+
+font-size: 14px;
+font-weight: 600;
+
+text-decoration: none;
+
+transition: all 0.2s ease;
+}
+
+.dataset-download:hover {
+transform: translateY(-2px);
+
+background: #124b99;
+}
+=======
+  color: #355872;
+}
+

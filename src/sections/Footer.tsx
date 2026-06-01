@@ -1,9 +1,6 @@
 import {
   FaMapMarkerAlt,
-  FaInstagram,
-  FaYoutube,
   FaGithub,
-  FaGlobe,
 } from "react-icons/fa";
 
 export default function Footer() {
@@ -24,9 +21,7 @@ export default function Footer() {
           <div>
 
             <h2>
-              MagnetAktivitas
-              <br />
-              Kota Bekasi
+              GeoBekasi
             </h2>
 
             <p>
@@ -36,15 +31,6 @@ export default function Footer() {
               Aktivitas Kota Bekasi
             </p>
 
-            <div className="footer-socials">
-
-              <FaGlobe />
-              <FaInstagram />
-              <FaYoutube />
-              <FaGithub />
-
-            </div>
-
           </div>
 
         </div>
@@ -52,7 +38,7 @@ export default function Footer() {
         <div className="footer-about">
 
           <h3>
-            MagnetAktivitas Kota Bekasi
+            GeoBekasi
           </h3>
 
           <p>
@@ -78,7 +64,7 @@ export default function Footer() {
             <FaGithub />
 
             <span>
-              github.com/RandySam/Geo-dahboard-App
+              <a href="github.com/RandySam/Geo-dahboard-App">GitHub Repository</a>
             </span>
 
           </div>
@@ -93,7 +79,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
 
-        © 2026 MagnetAktivitas Kota Bekasi.
+        © 2026 GeoBekasi Kota Bekasi.
         All rights reserved.
 
       </div>

@@ -1,5 +1,6 @@
 import sunIcon from "/icons/sun.png";
 import moonIcon from "/icons/moon.png";
+import burgerIcon from "/icons/burger-bar.png";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,11 +10,14 @@ type Props = {
   setDarkMode: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+
+  onMenuClick?: () => void;
 };
 
 export default function Header({
   darkMode,
   setDarkMode,
+  onMenuClick,
 }: Props) {
 
   const navigate =
@@ -23,6 +27,17 @@ export default function Header({
     <header className="header">
 
       <div className="header-left">
+
+        <button
+          className="mobile-menu-btn"
+          onClick={onMenuClick}
+          aria-label="Open Menu"
+        >
+          <img
+            src={burgerIcon}
+            alt="Menu"
+          />
+        </button>
 
         <button
           className="back-button"
@@ -38,7 +53,7 @@ export default function Header({
           <div>
 
             <h1>
-              MagnetAktivitas
+              GeoBekasi
             </h1>
 
             <p>

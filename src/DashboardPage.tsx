@@ -32,6 +32,16 @@ export default function DashboardPage() {
     setDarkMode,
   ] = useState(false);
 
+  const [
+    sidebarOpen,
+    setSidebarOpen,
+  ] = useState(false);
+
+  const [
+    legendOpen,
+    setLegendOpen,
+  ] = useState(false);
+
   /* =========================
      MAP LAYER
   ========================= */
@@ -556,6 +566,11 @@ export default function DashboardPage() {
         setDarkMode={
           setDarkMode
         }
+        onMenuClick={() =>
+          setSidebarOpen(
+            !sidebarOpen
+          )
+        }
       />
 
       {/* =========================
@@ -563,6 +578,9 @@ export default function DashboardPage() {
       ========================= */}
 
       <Sidebar
+        sidebarOpen={
+          sidebarOpen
+        }
         totalKecamatan={
           totalKecamatan
         }
@@ -672,16 +690,38 @@ export default function DashboardPage() {
           }
         />
 
+        {!legendOpen && (
+
+          <button
+            className="legend-toggle-btn"
+            onClick={() =>
+              setLegendOpen(true)
+            }
+          >
+            Legenda
+          </button>
+
+        )}
+
         {/* =========================
             LEGEND PANEL
         ========================= */}
 
         <LegendPanel
+          legendOpen={
+            legendOpen
+          }
           showCluster={
             showCluster
           }
           showFasilitas={
             showFasilitas
+          }
+
+          onClose={() =>
+            setLegendOpen(
+              false
+            )
           }
         />
 

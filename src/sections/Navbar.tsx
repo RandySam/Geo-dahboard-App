@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className="navbar-logo-text">
 
           <h2>
-            MagnetAktivitas
+            GeoBekasi
           </h2>
 
           <span>
