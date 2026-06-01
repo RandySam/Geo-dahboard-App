@@ -118,7 +118,7 @@ class AnalisisService:
         # ─────────────────────────────────────────────
         cluster_magnitudes = {}
         for label in range(jumlah_k):
-            cluster_features = X_scaled[raw_labels == label]
+            cluster_features = X_weighted[raw_labels == label]
             cluster_magnitudes[label] = float(np.mean(cluster_features))
 
         sorted_labels = sorted(cluster_magnitudes, key=cluster_magnitudes.get)
@@ -194,9 +194,20 @@ class AnalisisService:
                 jumlah_pasar=r.jumlah_pasar,
                 total_umkm=r.total_umkm,
                 silhouette_score=r.silhouette_score,
+                jumlah_mall_real=r.jumlah_mall_real,
+                jumlah_supermarket=r.jumlah_supermarket,
+                jumlah_pasar_real=r.jumlah_pasar_real,
+                jumlah_kuliner=r.jumlah_kuliner,
+                jumlah_transportasi=r.jumlah_transportasi,
             )
             features.append(ChoroplethFeature(
-                geometry=r.geometry,
+                geometry=
+                        json.loads(r.geometry)
+                        if isinstance(
+                            r.geometry,
+                            str
+                        )
+                        else r.geometry,
                 properties=properties,
             ))
 

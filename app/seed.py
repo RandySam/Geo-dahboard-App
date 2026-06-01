@@ -7,40 +7,35 @@ from app.models.fasilitas_ekonomi import FasilitasEkonomi
 
 def seed_data():
     db = SessionLocal()
-    print("Mulai proses input data")
+    print("=== Mulai Rekonstruksi Geometri Kecamatan ===")
 
-    # Import data
+    # Bersihkan tabel lama hingga akar (CASCADE akan menghapus fasilitas juga)
+    db.execute(text("TRUNCATE kecamatan CASCADE"))
+    db.commit()
+
     with open("app/data/Kecamatan_Bekasi.geojson", "r") as f:
         geojson_data = json.load(f)
     
     df_csv = pd.read_csv("app/data/Data Kecamatan Bekasi.csv")
     df_csv['Kecamatan_Clean'] = df_csv['Kecamatan'].astype(str).str.strip().str.lower()
 
-    for feature in geojson_data['features']:
-        nama_geo = feature['properties']['NAMOBJ']
-        geom_dict = feature['geometry']
-
     match_count = 0
+    # SATU LOOP TUNGGAL UNTUK MEMASTIKAN GEOMETRI TIDAK BERTUMPUK
     for feature in geojson_data['features']:
-        # Mengambil properti NAMOBJ dari GeoJSON Anda
         nama_geo = feature['properties'].get('NAMOBJ')
+        geom_dict = feature['geometry'] # Diambil setiap iterasi
+        
         if not nama_geo:
             continue
             
-        # Bersihkan string nama dari GeoJSON
         nama_geo_clean = str(nama_geo).strip().lower()
-        
-        # Atasi perbedaan penulisan kasus khusus seperti 'pondokgede' vs 'pondok gede'
-        # Kita hapus semua spasi hanya untuk perbandingan kecocokan logika
         nama_geo_match = nama_geo_clean.replace(" ", "")
         
-        # Cari baris yang cocok di CSV (dengan menghapus spasi juga saat membandingkan)
         csv_row = df_csv[df_csv['Kecamatan_Clean'].str.replace(" ", "") == nama_geo_match]
         
         if not csv_row.empty:
             row = csv_row.iloc[0]
             
-            # Buat objek model Kecamatan
             kecamatan = Kecamatan(
                 nama_kecamatan=row['Kecamatan'],
                 luas_km2=float(row['Luas (Km2)']),
@@ -51,44 +46,30 @@ def seed_data():
             )
             
             db.add(kecamatan)
-            db.flush()  # Agar kita mendapatkan kecamatan_id yang baru dibuat
+            db.flush() 
 
-            # Masukkan Geometri menggunakan PostGIS native function via text SQL
-            query = text(
-                "UPDATE kecamatan SET geom = ST_Force2D(ST_GeomFromGeoJSON(:geom)) WHERE kecamatan_id = :id"
-            )
+            # Update geometri secara presisi berdasarkan kecamatan_id saat ini
+            query = text("UPDATE kecamatan SET geom = ST_Force2D(ST_GeomFromGeoJSON(:geom)) WHERE kecamatan_id = :id")
             db.execute(query, {"geom": json.dumps(geom_dict), "id": kecamatan.kecamatan_id})
-            print(f"  ✓ Berhasil memasukkan wilayah: {kecamatan.nama_kecamatan}")
+            print(f"  ✓ {kecamatan.nama_kecamatan} -> Koordinat geometri UNIK tersimpan!")
             match_count += 1
-        else:
-            print(f"  ⚠ Peringatan: Wilayah '{nama_geo}' di GeoJSON tidak memiliki kecocokan data di CSV.")
     
     db.commit()
     db.close()
-    print(f"=== Selesai! {match_count} data kecamatan berhasil disimpan ke database ===")
-
+    print(f"=== Selesai! {match_count} kecamatan direkonstruksi ===\n")
 
 def seed_fasilitas():
     db = SessionLocal()
-    print("\n=== Memulai Proses Input Data Fasilitas Ekonomi ===")
+    print("=== Memulai Input Data Fasilitas Ekonomi ===")
 
-    # 1. Buka file GeoJSON fasilitas bersih Anda
-    try:
-        with open("app/data/titik_fasilitas_bersih.geojson", "r") as f:
-            geojson_data = json.load(f)
-        print(f"✓ Berhasil membaca GeoJSON Fasilitas. Jumlah fitur: {len(geojson_data['features'])}")
-    except FileNotFoundError:
-        print("✗ Gagal: File tidak ditemukan di 'app/data/titik_fasilitas_bersih.geojson'")
-        return
+    with open("app/data/titik_fasilitas_bersih.geojson", "r") as f:
+        geojson_data = json.load(f)
 
     success_count = 0
-    skip_count = 0
-
     for feature in geojson_data['features']:
         props = feature['properties']
         geom_dict = feature['geometry']
 
-        # Ambil metadata dari properti GeoJSON Anda
         osm_id = str(props.get('osm_id', ''))
         nama_fasilitas = props.get('name', 'Tanpa Nama')
         amenity = props.get('amenity')
@@ -96,56 +77,34 @@ def seed_fasilitas():
         railway = props.get('railway')
         jenis_fasilitas = props.get('jenis_fasilitas', 'Lainnya')
 
-        # 2. SPATIAL INTERSECTION (Mencari otomatis kecamatan berdasarkan titik koordinat)
-        # Kita tanya ke PostGIS: "Titik ini berada di dalam poligon kecamatan mana?"
         query_spatial_join = text("""
-            SELECT kecamatan_id, nama_kecamatan 
-            FROM kecamatan 
+            SELECT kecamatan_id FROM kecamatan 
             WHERE ST_Contains(kecamatan.geom, ST_Force2D(ST_GeomFromGeoJSON(:point_geom)))
             LIMIT 1;
         """)
         
         spatial_result = db.execute(query_spatial_join, {"point_geom": json.dumps(geom_dict)}).fetchone()
+        kecamatan_id = spatial_result[0] if spatial_result else None
 
-        if spatial_result:
-            kecamatan_id = spatial_result[0]
-            nama_kecamatan = spatial_result[1]
-        else:
-            # Jika titik berada sedikit di luar batas poligon (efek toleransi peta)
-            kecamatan_id = None
-            nama_kecamatan = "Luar Batas Bekasi / Tidak Diketahui"
-            skip_count += 1
-
-        # 3. Buat Objek Model FasilitasEkonomi
         fasilitas = FasilitasEkonomi(
-            osm_id=osm_id,
-            nama_fasilitas=nama_fasilitas,
-            amenity=amenity,
-            shop=shop,
-            railway=railway,
-            jenis_fasilitas=jenis_fasilitas,
+            osm_id=osm_id, nama_fasilitas=nama_fasilitas, amenity=amenity,
+            shop=shop, railway=railway, jenis_fasilitas=jenis_fasilitas,
             kecamatan_id=kecamatan_id
         )
 
         db.add(fasilitas)
-        db.flush() # Dapatkan fasilitas_id
+        db.flush()
 
-        # 4. Masukkan Geometri Point ke Database dengan ST_Force2D
-        query_update_geom = text("""
-            UPDATE fasilitas_ekonomi 
-            SET geom = ST_Force2D(ST_GeomFromGeoJSON(:point_geom)) 
-            WHERE id = :id
-        """)
-        db.execute(query_update_geom, {"point_geom": json.dumps(geom_dict), "id": fasilitas.id})
+        query_update_geom = text("UPDATE fasilitas_ekonomi SET geom = ST_Force2D(ST_GeomFromGeoJSON(:geom)) WHERE id = :id")
+        db.execute(query_update_geom, {"geom": json.dumps(geom_dict), "id": fasilitas.id})
         
         success_count += 1
-        if success_count % 50 == 0:
-            print(f"  → Berhasil memproses {success_count} titik fasilitas...")
 
     db.commit()
     db.close()
-    print(f"=== Selesai! {success_count} fasilitas berhasil disimpan. ({skip_count} titik di luar batas kecamatan) ===")
+    print(f"=== Selesai! {success_count} fasilitas berhasil disimpan ===")
 
+# PASTI DIJALANKAN KEDUANYA
 if __name__ == "__main__":
-    # seed_data()
+    seed_data()
     seed_fasilitas()

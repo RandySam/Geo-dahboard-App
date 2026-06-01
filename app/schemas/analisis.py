@@ -56,11 +56,17 @@ class ChoroplethProperties(BaseModel):
     jumlah_stasiun: int
     jumlah_mall: int
     jumlah_pasar: int
-    total_umkm: Optional[int] = None
-    jumlah_lrt: Optional[int] = Field(default=0)
-    jumlah_terminal: Optional[int] = Field(default=0)
-    jumlah_halte: Optional[int] = Field(default=0)
-    silhouette_score: Optional[float] = None
+    total_umkm: int
+    silhouette_score: float
+
+    jumlah_mall_real: Optional[int] = 0
+    jumlah_supermarket: Optional[int] = 0
+    jumlah_pasar_real: Optional[int] = 0
+    jumlah_kuliner: Optional[int] = 0
+    jumlah_transportasi: Optional[int] = 0
+    jumlah_lrt: Optional[int] = 0
+    jumlah_terminal: Optional[int] = 0
+    jumlah_halte: Optional[int] = 0
 
     class Config:
         from_attributes = True

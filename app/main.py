@@ -45,15 +45,19 @@ untuk aplikasi visualisasi magnet aktivitas wilayah Kota Bekasi.
 # Mengizinkan Frontend lokal (React pada port 3000 atau Vite pada port 5173)
 # untuk mengambil data dari backend tanpa terblokir oleh browser kebijakan CORS.
 # ──────────────────────────────────────────────────────────────────────────
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
+
+allow_origins=[
+        "http://148.230.102.226:5173",
         "http://localhost:3000",    # Default Create React App
         "http://localhost:5173",    # Default Vite (React / Vue)
         "http://127.0.0.1:3000",
         "http://127.0.0.1:5173",
-    ],
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
     allow_credentials=True,
+    allow_origins=["*"],
     allow_methods=["*"],            # Mengizinkan semua method HTTP (GET, POST, PUT, DELETE)
     allow_headers=["*"],            # Mengizinkan semua HTTP Headers
 )

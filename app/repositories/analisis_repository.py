@@ -131,11 +131,16 @@ class AnalisisRepository:
                 k.jumlah_mall, 
                 k.jumlah_pasar, 
                 k.total_umkm,
-                k.jumlah_lrt,
                 k.jumlah_terminal,
                 k.jumlah_halte,
                 ST_AsGeoJSON(k.geom)::json AS geometry,
-                COUNT(fe.id) AS jumlah_fasilitas
+                COUNT(fe.id) AS jumlah_fasilitas,
+		
+		COUNT(CASE WHEN LOWER(TRIM(fe.jenis_fasilitas)) = 'mall' THEN 1 END) AS jumlah_mall_real,
+    		COUNT(CASE WHEN LOWER(TRIM(fe.jenis_fasilitas)) = 'supermarket' THEN 1 END) AS jumlah_supermarket,
+    		COUNT(CASE WHEN LOWER(TRIM(fe.jenis_fasilitas)) = 'pasar' THEN 1 END) AS jumlah_pasar_real,
+    		COUNT(CASE WHEN LOWER(TRIM(fe.jenis_fasilitas)) = 'kuliner' THEN 1 END) AS jumlah_kuliner,
+		COUNT(CASE WHEN LOWER(TRIM(fe.jenis_fasilitas)) IN ('stasiun_lrt', 'terminal_halte') THEN 1 END) AS jumlah_transportasi
             FROM kecamatan k
             JOIN detail_analisis da ON da.kecamatan_id = k.kecamatan_id
             JOIN hasil_analisis ha ON ha.hasil_id = da.analisis_id
