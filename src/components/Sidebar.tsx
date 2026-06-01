@@ -16,6 +16,8 @@ import LayerPanel from "./LayerPanel";
 import OverviewPanel from "./OverviewPanel";
 
 type Props = {
+  sidebarOpen: boolean;
+
   totalKecamatan: number;
 
   categoriesStat: {
@@ -80,6 +82,8 @@ type PanelType =
   | "analytics";
 
 export default function Sidebar({
+  sidebarOpen,
+
   totalKecamatan,
 
   categoriesStat,
@@ -152,7 +156,13 @@ export default function Sidebar({
     ].icon;
 
   return (
-    <aside className="sidebar-modern">
+    <aside
+      className={`sidebar-modern ${
+        sidebarOpen
+          ? "sidebar-open"
+          : ""
+      }`}
+    >
 
       {/* =========================
           PANEL SELECTOR

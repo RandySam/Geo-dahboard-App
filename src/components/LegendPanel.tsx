@@ -1,12 +1,21 @@
 type Props = {
+  legendOpen: boolean;
+
   showCluster: boolean;
 
   showFasilitas: boolean;
+
+  onClose: () => void;
 };
 
 export default function LegendPanel({
+  legendOpen,
+
   showCluster,
+
   showFasilitas,
+
+  onClose,
 }: Props) {
 
   const clusterLegend = [
@@ -59,7 +68,20 @@ export default function LegendPanel({
   ];
 
   return (
-    <div className="legend-panel">
+    <div
+      className={`legend-panel ${
+        legendOpen
+          ? "legend-open"
+          : ""
+      }`}
+    >
+
+    <button
+      className="legend-close-btn"
+      onClick={onClose}
+    >
+      Tutup
+    </button>
 
       {/* =========================
           CLUSTER LEGEND

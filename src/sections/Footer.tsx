@@ -1,9 +1,6 @@
 import {
   FaMapMarkerAlt,
-  FaInstagram,
-  FaYoutube,
   FaGithub,
-  FaGlobe,
 } from "react-icons/fa";
 
 export default function Footer() {

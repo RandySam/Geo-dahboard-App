@@ -12,6 +12,9 @@ import {
   fetchDatasets,
 } from "../services/datasetService";
 
+import { BASE_URL }
+from "../services/api";
+
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -192,7 +195,7 @@ e.stopPropagation()
               </ul>
 
               <a
-                href={`http://localhost:8000${dataset.download_url}`}
+                href={`${BASE_URL}${dataset.download_url}`}
                 target="_blank"
                 rel="noreferrer"
                 className="dataset-download"
