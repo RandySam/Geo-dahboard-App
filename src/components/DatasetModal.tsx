@@ -233,16 +233,13 @@ e.stopPropagation()
         <ul>
 
           <li>
-            Luas Wilayah
-          </li>
-
-          <li>
             Total UMKM
           </li>
 
           <li>
             Jumlah
             Stasiun
+            (Mencakup KRL dan LRT)
           </li>
 
           <li>
@@ -251,15 +248,6 @@ e.stopPropagation()
 
           <li>
             Jumlah Pasar
-          </li>
-
-          <li>
-            Jumlah LRT
-          </li>
-
-          <li>
-            Jumlah
-            Terminal
           </li>
 
           <li>
