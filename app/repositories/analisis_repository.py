@@ -131,7 +131,6 @@ class AnalisisRepository:
                 k.jumlah_mall, 
                 k.jumlah_pasar, 
                 k.total_umkm,
-                k.jumlah_terminal,
                 k.jumlah_halte,
                 ST_AsGeoJSON(k.geom)::json AS geometry,
                 COUNT(fe.id) AS jumlah_fasilitas,

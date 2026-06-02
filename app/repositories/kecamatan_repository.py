@@ -82,7 +82,6 @@ class KecamatanRepository:
                 k.jumlah_stasiun,
                 k.jumlah_mall,
                 k.jumlah_pasar,
-                k.jumlah_terminal,
                 k.jumlah_halte,
                 ST_X(ST_Centroid(ST_Transform(k.geom, 4326))) AS lon,
                 ST_Y(ST_Centroid(ST_Transform(k.geom, 4326))) AS lat
