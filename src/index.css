@@ -1932,10 +1932,12 @@ body,
   gap: 10px;
 
   color: #6B7280;
+
+  flex: 1;
 }
 
 .team-links {
-  margin-top: 24px;
+  margin-top: auto;
 
   display: flex;
 
