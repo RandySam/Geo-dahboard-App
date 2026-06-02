@@ -1,3 +1,12 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+.venv/
+.ipynb_checkpoints/
+.vscode/
+environment.yml
+
 # Logs
 logs
 *.log
