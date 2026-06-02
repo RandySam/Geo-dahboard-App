@@ -1878,6 +1878,9 @@ body,
   border:
     1px solid #E5E7EB;
 
+  display: flex;
+  flex-direction: column;
+
   transition:
     all 0.3s ease;
 }
@@ -1904,6 +1907,9 @@ body,
   border-radius: 50%;
 
   object-fit: cover;
+
+  display: block;
+  margin: 0 auto;
 }
 
 .team-card h3 {
@@ -1912,6 +1918,8 @@ body,
   font-size: 28px;
 
   color: #1B2B4B;
+
+  text-align: center;
 }
 
 .team-info {
@@ -2416,12 +2424,13 @@ body,
 .dataset-card {
   background: #f8fafc;
 
-  border:
-    1px solid #e5e7eb;
-
+  border: 1px solid #e5e7eb;
   border-radius: 24px;
 
   padding: 22px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .dataset-card h3 {
@@ -2461,25 +2470,29 @@ DATASET DOWNLOAD BUTTON
 ========================= */
 
 .dataset-download {
-display: inline-flex;
-align-items: center;
-justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-margin-top: 16px;
+  margin-top: auto;
 
-padding: 10px 18px;
+  padding: 10px 18px;
 
-border-radius: 12px;
+  border-radius: 12px;
 
-background: #0E3B78;
-color: white;
+  background: #0E3B78;
+  color: white;
 
-font-size: 14px;
-font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 
-text-decoration: none;
+  text-decoration: none;
 
-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.dataset-card ul {
+  margin-bottom: 16px;
 }
 
 .dataset-download:hover {
