@@ -77,9 +77,44 @@ export default function DashboardPage() {
     "Lainnya",
   ]);
 
+  const [
+    selectedAreas,
+    setSelectedAreas,
+  ] = useState<any[]>([]);
+
+  const handleRenameArea = (
+    areaId: string,
+    newName: string
+  ) => {
+
+    setSelectedAreas(prev =>
+      prev.map(area =>
+        area.id === areaId
+          ? {
+              ...area,
+              name: newName,
+            }
+          : area
+      )
+    );
+
+  };
+
   /* =========================
      MAP FOCUS
   ========================= */
+
+  const areaStats =
+  selectedAreas.length > 0
+    ? selectedAreas[
+        selectedAreas.length - 1
+      ]
+    : null;
+
+    console.log(
+  "SELECTED AREAS:",
+  selectedAreas
+);
 
   const [
     selectedCoords,
@@ -87,6 +122,11 @@ export default function DashboardPage() {
   ] = useState<
     [number, number] | null
   >(null);
+
+  const [
+    selectedDistrict,
+    setSelectedDistrict,
+  ] = useState("");
 
   /* =========================
      USER MARKERS
@@ -98,7 +138,34 @@ export default function DashboardPage() {
   ] = useState<
     UserMarker[]
   >([]);
+    
+    useEffect(() => {
 
+  const savedMarkers =
+    localStorage.getItem(
+      "userFacilities"
+    );
+
+  if (!savedMarkers)
+    return;
+
+  try {
+
+    setUserMarkers(
+      JSON.parse(
+        savedMarkers
+      )
+    );
+
+  } catch {
+
+    console.error(
+      "Gagal membaca data userFacilities"
+    );
+
+  }
+
+}, []);
   /* =========================
      GIS DATA
   ========================= */
@@ -313,17 +380,36 @@ export default function DashboardPage() {
 
           try {
 
-            const rawCoords =
+            const polygon =
               feature.geometry
-                ?.coordinates?.[0]?.[0]?.[0];
+                ?.coordinates?.[0]?.[0];
 
             if (
-              rawCoords
+              polygon &&
+              polygon.length > 0
             ) {
 
+              const avgLng =
+                polygon.reduce(
+                  (
+                    sum: number,
+                    point: any
+                  ) => sum + point[0],
+                  0
+                ) / polygon.length;
+
+              const avgLat =
+                polygon.reduce(
+                  (
+                    sum: number,
+                    point: any
+                  ) => sum + point[1],
+                  0
+                ) / polygon.length;
+
               coordinates = [
-                rawCoords[1],
-                rawCoords[0],
+                avgLat,
+                avgLng,
               ];
             }
 
@@ -626,11 +712,20 @@ export default function DashboardPage() {
         pieChartData={
           pieChartData
         }
+        areaStats={
+          areaStats
+        }
         setSelectedCoords={
           setSelectedCoords
         }
         onCompareRegion={
           handleCompareRegion
+        }
+        selectedDistrict={
+          selectedDistrict
+        }
+        error={
+          error
         }
       />
 
@@ -685,8 +780,25 @@ export default function DashboardPage() {
           setUserMarkers={
             setUserMarkers
           }
+
+          selectedAreas={
+            selectedAreas
+          }
+
+          setSelectedAreas={
+            setSelectedAreas
+          }
+
           selectedCoords={
             selectedCoords
+          }
+
+          onRenameArea={
+            handleRenameArea
+          }
+
+          onSelectDistrict={
+            setSelectedDistrict
           }
         />
 

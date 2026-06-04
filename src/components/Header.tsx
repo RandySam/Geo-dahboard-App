@@ -45,7 +45,7 @@ export default function Header({
             navigate("/")
           }
         >
-          ← Landing Page
+          Kembali
         </button>
 
         <div className="header-brand">

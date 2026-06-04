@@ -51,8 +51,8 @@ export default function ChartPie({
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={95}
-              innerRadius={55}
+              outerRadius={90}
+              innerRadius={45}
               paddingAngle={4}
             >
               {data.map(

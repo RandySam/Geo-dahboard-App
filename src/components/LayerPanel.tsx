@@ -61,6 +61,18 @@ export default function LayerPanel({
     "Lainnya",
   ];
 
+  const categoryColors: Record<
+    string,
+    string
+  > = {
+    Kuliner: "#01befe",
+    Supermarket: "#ffdd00",
+    Mall: "#ff7d00",
+    Pasar: "#ff006d",
+    Transportasi: "#adff02",
+    Lainnya: "#8f00ff",
+  };
+
   /* =========================
      TOGGLE CATEGORY
   ========================= */
@@ -259,7 +271,8 @@ export default function LayerPanel({
               className="layer-item"
             >
 
-              <span
+              <div
+                className="layer-label"
                 style={{
                   opacity:
                     showFasilitas
@@ -267,8 +280,22 @@ export default function LayerPanel({
                       : 0.45,
                 }}
               >
-                {category}
-              </span>
+
+                <span
+                  className="layer-dot"
+                  style={{
+                    background:
+                      categoryColors[
+                        category
+                      ],
+                  }}
+                />
+
+                <span>
+                  {category}
+                </span>
+
+              </div>
 
               <button
                 className={`layer-switch ${

@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 
 import {
+  booleanPointInPolygon,
+} from "@turf/turf";
+
+import {
   useMap,
 } from "react-leaflet";
 
@@ -16,10 +20,36 @@ type Props = {
   setUserMarkers: React.Dispatch<
     React.SetStateAction<UserMarker[]>
   >;
+
+  userMarkers: UserMarker[];
+
+  fasilitasData: any;
+
+  setSelectedAreas:
+    React.Dispatch<
+      React.SetStateAction<any[]>
+    >;
+
+  setPendingPosition:
+    React.Dispatch<
+      React.SetStateAction<
+        [number, number] | null
+      >
+    >;
+
+  setShowFacilityModal:
+    React.Dispatch<
+      React.SetStateAction<boolean>
+    >;
 };
 
 export default function GeomanControls({
   setUserMarkers,
+  userMarkers,
+  fasilitasData,
+  setSelectedAreas,
+  setPendingPosition,
+  setShowFacilityModal,
 }: Props) {
   const map = useMap();
 
@@ -55,25 +85,24 @@ export default function GeomanControls({
 
         drawMarker: true,
 
-        drawPolyline: true,
+        drawPolyline: false,
 
         drawPolygon: true,
 
-        drawRectangle:
-          true,
+        drawRectangle: false,
 
-        drawCircle: true,
+        drawCircle: false,
 
         drawCircleMarker:
           false,
 
-        cutPolygon: true,
+        cutPolygon: false,
 
-        dragMode: true,
+        dragMode: false,
 
-        rotateMode: true,
+        rotateMode: false,
 
-        editMode: true,
+        editMode: false,
 
         removalMode: true,
       }
@@ -83,6 +112,8 @@ export default function GeomanControls({
       {
         finishOn:
           "contextmenu",
+
+        snappable: false,
       }
     );
 
@@ -99,12 +130,131 @@ export default function GeomanControls({
         e.shape ===
         "Marker"
       ) {
+
         const {
           lat,
           lng,
-        } = e.layer.getLatLng();
+        } =
+          e.layer.getLatLng();
 
-        setUserMarkers(
+        setPendingPosition([
+          lat,
+          lng,
+        ]);
+
+        setShowFacilityModal(
+          true
+        );
+
+        map.removeLayer(
+          e.layer
+        );
+      }
+
+      if (
+        e.shape ===
+        "Polygon"
+      ) {
+
+        if (
+          !fasilitasData?.features
+        )
+          return;
+
+        const polygon =
+          e.layer.toGeoJSON();
+
+        const selected =
+          fasilitasData.features.filter(
+            (
+              feature: any
+            ) =>
+              booleanPointInPolygon(
+                feature,
+                polygon
+              )
+          );
+
+        const selectedUserMarkers =
+          userMarkers.filter(
+            (marker) => {
+
+              const point = {
+                type: "Feature",
+                geometry: {
+                  type: "Point",
+                  coordinates: [
+                    marker.position[1],
+                    marker.position[0],
+                  ],
+                },
+                properties: {},
+              };
+
+              return booleanPointInPolygon(
+                point as any,
+                polygon
+              );
+            }
+          );
+
+        const kategoriCount:
+          Record<string, number> =
+          {};
+
+        selected.forEach(
+          (item: any) => {
+
+            const kategori =
+              item.properties
+                ?.kategori_final ||
+              "Lainnya";
+
+            kategoriCount[
+              kategori
+            ] =
+              (
+                kategoriCount[
+                  kategori
+                ] || 0
+              ) + 1;
+          }
+        );
+
+        selectedUserMarkers.forEach(
+          (marker) => {
+
+            const kategori =
+              marker.category ||
+              "Lainnya";
+
+            kategoriCount[
+              kategori
+            ] =
+              (
+                kategoriCount[
+                  kategori
+                ] || 0
+              ) + 1;
+
+          }
+        );
+
+        const dominantCategory =
+          Object.entries(
+            kategoriCount
+          ).sort(
+            (a, b) =>
+              b[1] - a[1]
+          )[0]?.[0] ||
+          "-";
+
+        const layerId =
+          L.Util.stamp(
+            e.layer
+          );
+
+        setSelectedAreas(
           (prev) => [
             ...prev,
             {
@@ -112,22 +262,25 @@ export default function GeomanControls({
                 crypto.randomUUID(),
 
               name:
-                "Lokasi Baru",
+                `Area #${
+                  prev.length + 1
+                }`,
 
-              position:
-                [
-                  lat,
-                  lng,
-                ] as LatLngTuple,
+              layerId,
 
-              popUp:
-                "Lokasi Baru",
+              total:
+                selected.length + selectedUserMarkers.length,
+
+              dominantCategory,
+
+              kategoriCount,
+
+              facilities:
+                selected,
+
+              polygon,
             },
           ]
-        );
-
-        map.removeLayer(
-          e.layer
         );
       }
 
@@ -147,12 +300,31 @@ export default function GeomanControls({
       }
     };
 
+    
+
     /* =====================
        REMOVE EVENT
        ===================== */
     const handleRemove = (
       e: any
     ) => {
+
+      const layerId =
+        L.Util.stamp(
+          e.layer
+        );
+
+      setSelectedAreas(
+        (prev) => {
+
+          return prev.filter(
+            (area) =>
+              area.layerId !==
+              layerId
+          );
+        }
+      );
+
       if (
         e.layer instanceof
         L.Marker
@@ -164,11 +336,12 @@ export default function GeomanControls({
           e.layer.getLatLng();
 
         setUserMarkers(
-          (prev) =>
+        (prev) => {
+
+          const updated =
             prev.filter(
-              (
-                marker
-              ) => {
+              (marker) => {
+
                 const [
                   mLat,
                   mLng,
@@ -177,19 +350,27 @@ export default function GeomanControls({
 
                 return !(
                   Math.abs(
-                    mLat -
-                      lat
-                  ) <
-                    0.000001 &&
+                    mLat - lat
+                  ) < 0.000001 &&
+
                   Math.abs(
-                    mLng -
-                      lng
-                  ) <
-                    0.000001
+                    mLng - lng
+                  ) < 0.000001
                 );
+
               }
+            );
+
+          localStorage.setItem(
+            "userFacilities",
+            JSON.stringify(
+              updated
             )
-        );
+          );
+
+          return updated;
+        }
+      );
       }
     };
 
@@ -227,7 +408,7 @@ export default function GeomanControls({
 
       leafletMap.pm.removeControls();
     };
-  }, [map, setUserMarkers]);
+  }, [map, setUserMarkers, userMarkers, fasilitasData, setSelectedAreas]);
 
   return null;
 }
