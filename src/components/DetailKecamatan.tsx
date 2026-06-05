@@ -35,12 +35,14 @@ type Props = {
       [number, number] | null
     >
   >;
+
+  selectedDistrict: string;
 };
 
 export default function DetailKecamatan({
   data,
-
   setSelectedCoords,
+  selectedDistrict,
 }: Props) {
   /* =========================
      DEFAULT DISTRICT
@@ -64,11 +66,40 @@ export default function DetailKecamatan({
     defaultDistrict
       ?.id || null
   );
-
+  
   const [
     showDropdown,
     setShowDropdown,
   ] = useState(false);
+
+  useEffect(() => {
+
+    if (!selectedDistrict)
+      return;
+
+    const district =
+      data.find(
+        (item) =>
+          item.name ===
+          selectedDistrict
+      );
+
+    if (!district)
+      return;
+
+    setSelectedDistrictId(
+      district.id
+    );
+
+    setSelectedCoords(
+      district.coordinates
+    );
+
+  }, [
+    selectedDistrict,
+    data,
+    setSelectedCoords,
+  ]);
 
   /* =========================
      ACTIVE DISTRICT
@@ -126,7 +157,7 @@ export default function DetailKecamatan({
       ========================= */}
 
       <div className="detail-header">
-        <div>
+        <div className="detail-header-content">
           <h3>
             Detail Kecamatan
           </h3>

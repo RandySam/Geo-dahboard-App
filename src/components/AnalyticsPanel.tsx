@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import CompareRegion from "./CompareRegion";
 
 import DetailKecamatan from "./DetailKecamatan";
@@ -5,6 +7,8 @@ import DetailKecamatan from "./DetailKecamatan";
 import ChartBar from "./ChartBar";
 
 import ChartPie from "./ChartPie";
+
+import ExportReportModal from "./ExportReportModal";
 
 type Props = {
   districtDetails: any[];
@@ -17,6 +21,8 @@ type Props = {
 
   pieChartData: any[];
 
+  areaStats: any;
+
   setSelectedCoords: React.Dispatch<
     React.SetStateAction<
       [number, number] | null
@@ -27,6 +33,8 @@ type Props = {
     regionA: string,
     regionB: string
   ) => void;
+
+  selectedDistrict: string;
 
   error?: string | null;
 };
@@ -42,12 +50,22 @@ export default function AnalyticsPanel({
 
   pieChartData,
 
+  areaStats,
+
   setSelectedCoords,
 
   onCompareRegion,
 
+  selectedDistrict,
+
   error,
 }: Props) {
+
+  const [
+    showExportModal,
+    setShowExportModal
+  ] = useState(false);
+
   return (
     <div className="analytics-panel">
 
@@ -72,6 +90,25 @@ export default function AnalyticsPanel({
         setSelectedCoords={
           setSelectedCoords
         }
+        selectedDistrict={
+          selectedDistrict
+        }
+      />
+
+      {/* =========================
+          BAR CHART
+      ========================= */}
+
+      <ChartBar
+        data={barChartData}
+      />
+
+      {/* =========================
+          PIE CHART
+      ========================= */}
+
+      <ChartPie
+        data={pieChartData}
       />
 
       {/* =========================
@@ -306,7 +343,7 @@ export default function AnalyticsPanel({
           <div className="compare-summary">
 
             <h4>
-              Comparison Summary
+              Kesimpulan Perbandingan
             </h4>
 
             <p>
@@ -321,23 +358,40 @@ export default function AnalyticsPanel({
         </div>
 
       )}
+      <div className="export-report-section">
 
-      {/* =========================
-          BAR CHART
-      ========================= */}
+        <div className="export-report-content">
 
-      <ChartBar
-        data={barChartData}
+          <h3>
+            Export Laporan
+          </h3>
+
+          <p>
+            Export hasil analisis kecamatan
+            ke dalam format PDF yang berisi
+            ringkasan data, grafik, statistik,
+            dan kesimpulan analisis.
+          </p>
+
+        </div>
+
+        <button
+          className="export-report-btn"
+          onClick={() =>
+            setShowExportModal(true)
+          }
+        >
+          Export PDF
+        </button>
+
+      </div>
+      <ExportReportModal
+        open={showExportModal}
+        onClose={() =>
+          setShowExportModal(false)
+        }
+        districts={districtDetails}
       />
-
-      {/* =========================
-          PIE CHART
-      ========================= */}
-
-      <ChartPie
-        data={pieChartData}
-      />
-
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import {
   useState,
+  useRef,
+  useEffect,
 } from "react";
 
 type Region = {
@@ -32,6 +34,44 @@ export default function CompareRegion({
     selectedB,
     setSelectedB,
   ] = useState("");
+
+  const [openA, setOpenA] =
+  useState(false);
+
+const [openB, setOpenB] =
+  useState(false);
+
+const dropdownRef =
+  useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+
+  const handleClickOutside =
+    (event: MouseEvent) => {
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(
+          event.target as Node
+        )
+      ) {
+        setOpenA(false);
+        setOpenB(false);
+      }
+    };
+
+  document.addEventListener(
+    "mousedown",
+    handleClickOutside
+  );
+
+  return () =>
+    document.removeEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+
+}, []);
 
   const handleCompare =
     () => {
@@ -78,85 +118,122 @@ export default function CompareRegion({
           SELECT GROUP
       ========================= */}
 
-      <div className="compare-select-group">
+      <div
+        className="compare-select-group"
+        ref={dropdownRef}
+      >
 
-        {/* =========================
-            SELECT A
-        ========================= */}
+        {/* SELECT A */}
 
-        <select
-          className="compare-select"
-          value={selectedA}
-          onChange={(e) =>
-            setSelectedA(
-              e.target.value
-            )
-          }
-        >
+        <div className="district-selector">
 
-          <option
-            value=""
-            disabled
-            hidden
+          <button
+            className="district-selector-btn"
+            onClick={() =>
+              setOpenA(!openA)
+            }
           >
-            Pilih Kecamatan
-          </option>
+            <span>
+              {selectedA ||
+                "Pilih Kecamatan"}
+            </span>
 
-          {regions.map(
-            (region) => (
+            <span>⌄</span>
+          </button>
 
-              <option
-                key={region.id}
-                value={region.name}
-              >
-                {region.name}
-              </option>
+          {openA && (
 
-            )
+            <div className="district-dropdown-menu">
+
+              {regions.map(
+                (region) => (
+
+                  <button
+                    key={region.id}
+                    className={`district-dropdown-item ${
+                      selectedA ===
+                      region.name
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedA(
+                        region.name
+                      );
+                      setOpenA(
+                        false
+                      );
+                    }}
+                  >
+                    {region.name}
+                  </button>
+
+                )
+              )}
+
+            </div>
+
           )}
 
-        </select>
-
-        {/* =========================
-            AND
-        ========================= */}
+        </div>
 
         <div className="compare-and">
           &
         </div>
 
-        {/* =========================
-            SELECT B
-        ========================= */}
+        {/* SELECT B */}
 
-        <select
-          className="compare-select"
-          value={selectedB}
-          onChange={(e) =>
-            setSelectedB(
-              e.target.value
-            )
-          }
-        >
+        <div className="district-selector">
 
-          <option value="">
-            Pilih Kecamatan
-          </option>
+          <button
+            className="district-selector-btn"
+            onClick={() =>
+              setOpenB(!openB)
+            }
+          >
+            <span>
+              {selectedB ||
+                "Pilih Kecamatan"}
+            </span>
 
-          {regions.map(
-            (region) => (
+            <span>⌄</span>
+          </button>
 
-              <option
-                key={region.id}
-                value={region.name}
-              >
-                {region.name}
-              </option>
+          {openB && (
 
-            )
+            <div className="district-dropdown-menu">
+
+              {regions.map(
+                (region) => (
+
+                  <button
+                    key={region.id}
+                    className={`district-dropdown-item ${
+                      selectedB ===
+                      region.name
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedB(
+                        region.name
+                      );
+                      setOpenB(
+                        false
+                      );
+                    }}
+                  >
+                    {region.name}
+                  </button>
+
+                )
+              )}
+
+            </div>
+
           )}
 
-        </select>
+        </div>
 
       </div>
 

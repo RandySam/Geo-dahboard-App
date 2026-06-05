@@ -74,6 +74,12 @@ type Props = {
     regionA: string,
     regionB: string
   ) => void;
+
+  areaStats: any;
+
+  selectedDistrict: string;
+
+  error?: string | null;
 };
 
 type PanelType =
@@ -113,6 +119,12 @@ export default function Sidebar({
   setSelectedCoords,
 
   onCompareRegion,
+
+  areaStats,
+
+  selectedDistrict,
+
+  error,
 }: Props) {
   const [
     activePanel,
@@ -337,17 +349,14 @@ export default function Sidebar({
             districtDetails={
               districtDetails
             }
-            compareRegions={
-              compareRegions
-            }
-            comparisonResult={
-              comparisonResult
-            }
             barChartData={
               barChartData
             }
             pieChartData={
               pieChartData
+            }
+            areaStats={
+              areaStats
             }
             setSelectedCoords={
               setSelectedCoords
@@ -355,6 +364,13 @@ export default function Sidebar({
             onCompareRegion={
               onCompareRegion
             }
+            compareRegions={
+              compareRegions
+            }
+            comparisonResult={
+              comparisonResult
+            }
+            selectedDistrict={selectedDistrict}
           />
 
         )}

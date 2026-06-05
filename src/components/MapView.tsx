@@ -1,6 +1,7 @@
 import {
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import {
@@ -22,6 +23,12 @@ import type {
 } from "../types/marker";
 
 import GeomanControls from "./GeomanControls";
+
+import AddFacilityModal
+  from "./AddFacilityModal";
+
+import SelectedAreasPanel
+  from "./SelectedAreasPanel";
 
 type Props = {
   darkMode: boolean;
@@ -51,6 +58,22 @@ type Props = {
   selectedCoords:
     | [number, number]
     | null;
+
+  selectedAreas: any[];
+
+  setSelectedAreas:
+    React.Dispatch<
+      React.SetStateAction<any[]>
+    >;
+
+  onSelectDistrict?: (
+    district: string
+  ) => void;
+
+  onRenameArea: (
+  areaId: string,
+  newName: string
+) => void;
 };
 
 /* ════════════════════════════════════════
@@ -172,21 +195,19 @@ export default function MapView({
   setUserMarkers,
 
   selectedCoords,
+
+  selectedAreas,
+
+  setSelectedAreas,
+
+  onRenameArea,
+
+  onSelectDistrict,
 }: Props) {
   const mapRef =
     useRef<L.Map | null>(
       null
     );
-
-    console.log(
-  "FASILITAS DATA:",
-  fasilitasData
-);
-
-console.log(
-  "CHOROPLETH:",
-  choroplethData
-);
 
   /* ════════════════════════════════════════
      FILTER FASILITAS
@@ -237,8 +258,52 @@ console.log(
       };
     };
 
+    const [
+      showAreasPanel,
+      setShowAreasPanel
+    ] = useState(false);
+
+    const [
+      showFacilityModal,
+      setShowFacilityModal,
+    ] = useState(false);
+
+    const [
+      pendingPosition,
+      setPendingPosition,
+    ] = useState<
+      [number, number] | null
+    >(null);
+
   return (
     <div className="map-wrapper">
+      {!showAreasPanel && (
+
+  <button
+    className="area-toggle-btn"
+    onClick={() =>
+      setShowAreasPanel(true)
+    }
+  >
+    <img
+      src="/icons/area.png"
+      alt="Area"
+    />
+  </button>
+
+  )}
+
+  {showAreasPanel && (
+
+    <SelectedAreasPanel
+      selectedAreas={selectedAreas}
+      onRenameArea={onRenameArea}
+      onClose={() =>
+        setShowAreasPanel(false)
+      }
+    />
+
+  )}
       <MapContainer
         center={[
           -6.27,
@@ -413,6 +478,14 @@ console.log(
                     )
                       return;
 
+                    const namaKecamatan =
+                      feature.properties
+                        ?.nama_kecamatan;
+
+                    onSelectDistrict?.(
+                      namaKecamatan
+                    );
+
                     mapRef.current.fitBounds(
                       e.target.getBounds(),
                       {
@@ -478,6 +551,14 @@ console.log(
 
                 fillOpacity: 0,
               }}
+
+              onEachFeature={(
+                feature: any,
+                layer
+              ) => {
+                layer.options.pmIgnore =
+                  true;
+              }}
             />
           )}
 
@@ -527,9 +608,7 @@ console.log(
         {showFasilitas &&
           filteredFasilitas && (
             <GeoJSON
-              key={selectedCategories.join(
-                "-"
-              )}
+              key={`${selectedCategories.join("-")}-${selectedAreas.length}`}
               pane="fasilitasPane"
               data={
                 filteredFasilitas
@@ -555,9 +634,22 @@ console.log(
                     Lainnya: "#8f00ff",
                   };
 
+                const isSelected =
+                  selectedAreas.some(
+                    (area: any) =>
+                      area.facilities.some(
+                        (facility: any) =>
+                          facility.properties?.osm_id ===
+                          feature.properties?.osm_id
+                      )
+                  );
+
                 const defaultStyle =
                   {
-                    radius: 7.5,
+                    radius:  
+                    isSelected
+                      ? 12
+                      : 7.5,
 
                     fillColor:
                     categoryColors[
@@ -566,9 +658,14 @@ console.log(
                     ] || "#355872",
 
                     color:
-                      "#ffffff",
+                    isSelected
+                      ? "#000000"
+                      : "#ffffff",
 
-                    weight: 1.5,
+                    weight:
+                    isSelected
+                      ? 4
+                      : 1.5,
 
                     fillOpacity: 1,
                   };
@@ -691,9 +788,17 @@ console.log(
               icon={blueIcon}
             >
               <Popup>
-                {
-                  marker.name
-                }
+
+                <strong>
+                  {marker.name}
+                </strong>
+
+                <br />
+
+                Kategori:
+                {" "}
+                {marker.category}
+
               </Popup>
             </Marker>
           )
@@ -706,6 +811,26 @@ console.log(
         <GeomanControls
           setUserMarkers={
             setUserMarkers
+          }
+
+          userMarkers={
+            userMarkers
+          }
+
+          fasilitasData={
+            fasilitasData
+          }
+
+          setSelectedAreas={
+            setSelectedAreas
+          }
+
+          setPendingPosition={
+            setPendingPosition
+          }
+
+          setShowFacilityModal={
+            setShowFacilityModal
           }
         />
 
@@ -728,6 +853,82 @@ console.log(
         
         <ZoomLabelController />
       </MapContainer>
+
+      <AddFacilityModal
+
+        open={
+          showFacilityModal
+        }
+
+        onClose={() => {
+
+          setShowFacilityModal(
+            false
+          );
+
+          setPendingPosition(
+            null
+          );
+
+        }}
+
+        onSave={(
+          name,
+          category
+        ) => {
+
+          if (
+            !pendingPosition
+          ) {
+            return;
+          }
+
+          const markerData = {
+
+            id:
+              crypto.randomUUID(),
+
+            name,
+
+            category,
+
+            position:
+              pendingPosition,
+
+            popUp:
+              `${name}
+      Kategori: ${category}`,
+          };
+
+          setUserMarkers(
+            (prev) => {
+
+              const updated = [
+                ...prev,
+                markerData,
+              ];
+
+              localStorage.setItem(
+                "userFacilities",
+                JSON.stringify(
+                  updated
+                )
+              );
+
+              return updated;
+            }
+          );
+
+          setShowFacilityModal(
+            false
+          );
+
+          setPendingPosition(
+            null
+          );
+
+        }}
+      />
     </div>
   );
 } 
