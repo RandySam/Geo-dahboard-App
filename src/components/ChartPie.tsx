@@ -7,23 +7,15 @@ import {
   Legend,
 } from "recharts";
 
-type ChartData = {
-  name: string;
-  value: number;
-};
+import { CHART_COLORS } from "../constants/chartColors";
+
+import type {
+  PieChartData,
+} from "../types/chart";
 
 type Props = {
-  data: ChartData[];
+  data: PieChartData[];
 };
-
-const COLORS = [
-  "var(--deep-sky-blue)",
-  "var(--bright-gold)",
-  "var(--vivid-tangerine)",
-  "var(--neon-pink)",
-  "var(--slime-lime)",
-  "var(--violet-ray)",
-];
 
 export default function ChartPie({
   data,
@@ -57,15 +49,14 @@ export default function ChartPie({
             >
               {data.map(
   (
-                  entry,
+                  _,
                   index
                 ) => (
                   <Cell
                     key={index}
                     fill={
-                      COLORS[
-                        index %
-                          COLORS.length
+                      CHART_COLORS[
+                        index % CHART_COLORS.length
                       ]
                     }
                   />

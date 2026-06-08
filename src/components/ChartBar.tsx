@@ -9,23 +9,15 @@ import {
   Cell,
 } from "recharts";
 
-type ChartData = {
-  name: string;
-  total: number;
-};
+import { CHART_COLORS } from "../constants/chartColors";
+
+import type {
+  BarChartData,
+} from "../types/chart";
 
 type Props = {
-  data: ChartData[];
+  data: BarChartData[];
 };
-
-const COLORS = [
-  "var(--deep-sky-blue)",
-  "var(--bright-gold)",
-  "var(--vivid-tangerine)",
-  "var(--neon-pink)",
-  "var(--slime-lime)",
-  "var(--violet-ray)",
-];
 
 export default function ChartBar({
   data,
@@ -79,16 +71,13 @@ export default function ChartBar({
               radius={[8, 8, 0, 0]}
             >
               {data.map(
-                (
-                  entry,
-                  index
-                ) => (
+                (_, index) => (
                   <Cell
                     key={index}
                     fill={
-                      COLORS[
+                      CHART_COLORS[
                         index %
-                          COLORS.length
+                          CHART_COLORS.length
                       ]
                     }
                   />

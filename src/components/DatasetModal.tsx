@@ -307,17 +307,17 @@ e.stopPropagation()
           </li>
 
           <li>
-            Magnet
+            Cluster
             Rendah
           </li>
 
           <li>
-            Magnet
+            Cluster
             Sedang
           </li>
 
           <li>
-            Magnet
+            Cluster
             Tinggi
           </li>
 
@@ -348,7 +348,7 @@ e.stopPropagation()
 
           <li>
             Choropleth
-            Magnet
+            Cluster
             Aktivitas
           </li>
 

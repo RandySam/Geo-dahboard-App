@@ -4,14 +4,12 @@ import {
   useEffect,
 } from "react";
 
-type Region = {
-  id: string;
-
-  name: string;
-};
+import type {
+  CompareRegionItem,
+} from "../types/comparison";
 
 type Props = {
-  regions: Region[];
+  regions: CompareRegionItem[];
 
   onCompare: (
     regionA: string,

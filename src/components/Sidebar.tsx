@@ -75,8 +75,6 @@ type Props = {
     regionB: string
   ) => void;
 
-  areaStats: any;
-
   selectedDistrict: string;
 
   error?: string | null;
@@ -119,8 +117,6 @@ export default function Sidebar({
   setSelectedCoords,
 
   onCompareRegion,
-
-  areaStats,
 
   selectedDistrict,
 
@@ -354,9 +350,6 @@ export default function Sidebar({
             }
             pieChartData={
               pieChartData
-            }
-            areaStats={
-              areaStats
             }
             setSelectedCoords={
               setSelectedCoords

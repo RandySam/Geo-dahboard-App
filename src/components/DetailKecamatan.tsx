@@ -8,24 +8,9 @@ import {
   useState,
 } from "react";
 
-type DistrictDetail = {
-  id: string;
-
-  name: string;
-
-  coordinates: [
-    number,
-    number
-  ];
-
-  cluster: string;
-
-  totalFacilities: number;
-
-  dominantCategory: string;
-
-  topActivities: string;
-};
+import type {
+  DistrictDetail,
+} from "../types/district";
 
 type Props = {
   data: DistrictDetail[];
@@ -257,9 +242,9 @@ export default function DetailKecamatan({
 
               <strong
                 className={`summary-value cluster ${
-                  activeDistrict.cluster === "Magnet Rendah"
+                  activeDistrict.cluster === "Cluster Rendah"
                     ? "cluster-rendah"
-                    : activeDistrict.cluster === "Magnet Sedang"
+                    : activeDistrict.cluster === "Clus Sedang"
                     ? "cluster-sedang"
                     : "cluster-tinggi"
                 }`}

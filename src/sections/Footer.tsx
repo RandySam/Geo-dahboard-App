@@ -27,7 +27,7 @@ export default function Footer() {
             <p>
               Geodashboard untuk
               Visualisasi dan
-              Analisis Magnet
+              Analisis Cluster
               Aktivitas Kota Bekasi
             </p>
 
