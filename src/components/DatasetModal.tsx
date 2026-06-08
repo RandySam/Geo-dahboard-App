@@ -133,6 +133,22 @@ e.stopPropagation()
 
     {/* CONTENT */}
 
+    <div className="dataset-period">
+
+      <span className="dataset-period-icon">
+        <img src="icons/calendar.png" alt="" />
+      </span>
+
+      <span>
+        Periode Dataset:
+      </span>
+
+      <strong>
+        2022–2026
+      </strong>
+
+    </div>
+
     <div className="dataset-modal-content">
 
       {/* DATASET DARI BACKEND */}
@@ -360,6 +376,74 @@ e.stopPropagation()
           <li>
             Analisis
             Cluster
+          </li>
+
+        </ul>
+
+      </div>
+
+      {/* SUMBER DATA PENELITIAN */}
+
+      <div className="dataset-card full-width">
+
+        <h3>
+          Sumber Data Penelitian
+        </h3>
+
+        <p>
+          Data yang digunakan dalam penelitian
+          ini diperoleh dari berbagai sumber
+          resmi pemerintah,
+          dan penyedia layanan transportasi.
+        </p>
+
+        <ul>
+
+          <li>
+            <a href="https://bekasikota.bps.go.id/id/statistics-table/2/MzQjMg==/luas-wilayah-.html">BPS Kota Bekasi (2023) —
+            Data Luas Wilayah Kecamatan</a>
+          </li>
+
+          <li>
+            <a href="https://bekasikota.bps.go.id/id/statistics-table/3/V1ZSbFRUY3lTbFpEYTNsVWNGcDZjek53YkhsNFFUMDkjMyMzMjc1/jumlah-penduduk-laju-pertumbuhan-penduduk-distribusi-persentase-penduduk-kepadatan-penduduk-rasio-jenis-kelamin-penduduk-menurut-kecamatan-di-kota-bekasi.html?year=2026">BPS Kota Bekasi (2026) —
+            Data Kependudukan Kota Bekasi</a>
+          </li>
+
+          <li>
+            <a href="https://opendata.bekasikota.go.id/dataset/jumlah-usaha-mikro-kecil-dan-menengah-umkm-bidang-kuliner-di-kota-bekasi">Open Data Kota Bekasi (2025) —
+            Data UMKM Kuliner</a>
+          </li>
+
+          <li>
+            <a href="https://kci.id/perjalanan-krl/peta-rute">KAI Commuter (2026) —
+            Peta Rute dan Stasiun KRL</a>
+          </li>
+
+          <li>
+            <a href="https://lrtjabodebek.kai.id/stations">LRT Jabodebek (2026) —
+            Data Stasiun LRT</a>
+          </li>
+
+          <li>
+            <a href="https://dpmptsp.bekasikota.go.id/kegiatan-usaha/Pasar">DPMPTSP Kota Bekasi (2026) —
+            Data Pasar Kota Bekasi</a>
+          </li>
+
+          <li>
+            <a href="https://bekasikota.go.id/detail/dishub-kota-bekasi-sediakan-10-halte-bus-berkonsep-modern-dan-smart">Pemerintah Kota Bekasi —
+            Informasi Administratif Kota
+            Bekasi</a>
+          </li>
+
+          <li>
+            <a href="https://kumparan.com/jendela-dunia/daftar-terminal-di-bekasi-dan-lokasinya-1ytvU8RJAn2/full">Kumparan (2022) —
+            Data Terminal Kota Bekasi</a>
+          </li>
+
+          <li>
+            <a href="https://id.wikipedia.org/wiki/Kategori:Pusat_perbelanjaan_di_Kota_Bekasi">Wikipedia —
+            Data Pusat Perbelanjaan
+            Kota Bekasi</a>
           </li>
 
         </ul>

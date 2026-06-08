@@ -39,12 +39,12 @@ const features = [
       "Menampilkan berbagai layer seperti sistem administrasi, jaringan jalan, fasilitas umum, dan batas administrasi.",
   },
 
-  {
-    icon: <FaSearchLocation />,
-    title: "Analisis Spasial",
-    desc:
-      "Menyediakan analisis spasial untuk mengidentifikasi korelasi antar objek spasial secara mendalam.",
-  },
+  // {
+  //   icon: <FaSearchLocation />,
+  //   title: "Analisis Spasial",
+  //   desc:
+  //     "Menyediakan analisis spasial untuk mengidentifikasi korelasi antar objek spasial secara mendalam.",
+  // },
 
   {
     icon: <FaFileExport />,
