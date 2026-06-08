@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FACILITY_CATEGORIES } from "../constants/categories";
 
 type Props = {
   open: boolean;
@@ -25,7 +26,9 @@ export default function AddFacilityModal({
   const [
     category,
     setCategory,
-  ] = useState("Kuliner");
+  ] = useState(
+    FACILITY_CATEGORIES[0]
+  );
 
   if (!open) {
     return null;
@@ -60,25 +63,17 @@ export default function AddFacilityModal({
           }
         >
 
-          <option>
-            Kuliner
-          </option>
-
-          <option>
-            Mall
-          </option>
-
-          <option>
-            Supermarket
-          </option>
-
-          <option>
-            Pasar
-          </option>
-
-          <option>
-            Transportasi
-          </option>
+          {
+            FACILITY_CATEGORIES.map(
+              category => (
+                <option
+                  key={category}
+                >
+                  {category}
+                </option>
+              )
+            )
+          }
 
         </select>
 
@@ -107,8 +102,10 @@ export default function AddFacilityModal({
               setName("");
 
               setCategory(
-                "Kuliner"
-              );
+                  FACILITY_CATEGORIES[0]
+                );
+
+              onClose();
             }}
           >
             Simpan

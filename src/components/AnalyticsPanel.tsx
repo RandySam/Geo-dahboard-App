@@ -10,18 +10,32 @@ import ChartPie from "./ChartPie";
 
 import ExportReportModal from "./ExportReportModal";
 
+import CompareCard from "./CompareCard";
+
+import type {
+  BarChartData,
+  PieChartData,
+} from "../types/chart";
+
+import type {
+  DistrictDetail,
+} from "../types/district";
+
+import type {
+  CompareRegionItem,
+  ComparisonResult,
+} from "../types/comparison";
+
 type Props = {
-  districtDetails: any[];
+  districtDetails: DistrictDetail[];
 
-  compareRegions: any[];
+  compareRegions: CompareRegionItem[];
 
-  comparisonResult: any;
+  comparisonResult: ComparisonResult | null;
 
-  barChartData: any[];
+  barChartData: BarChartData[];
 
-  pieChartData: any[];
-
-  areaStats: any;
+  pieChartData: PieChartData[];
 
   setSelectedCoords: React.Dispatch<
     React.SetStateAction<
@@ -49,8 +63,6 @@ export default function AnalyticsPanel({
   barChartData,
 
   pieChartData,
-
-  areaStats,
 
   setSelectedCoords,
 
@@ -138,201 +150,17 @@ export default function AnalyticsPanel({
 
           <div className="compare-card-grid">
 
-            {/* =========================
-                DISTRICT A
-            ========================= */}
+            <CompareCard
+              district={
+                comparisonResult.districtA
+              }
+            />
 
-            <div className="compare-card">
-
-              <h4>
-                {
-                  comparisonResult
-                    .districtA
-                    .name
-                }
-              </h4>
-
-              <div className="compare-card-content">
-
-                <div className="compare-item">
-
-                  <span>
-                    Cluster
-                  </span>
-
-                  <strong
-                    className={`${
-                      comparisonResult
-                        .districtA
-                        .cluster ===
-                      "Magnet Rendah"
-                        ? "cluster-rendah"
-                        : comparisonResult
-                            .districtA
-                            .cluster ===
-                          "Magnet Sedang"
-                        ? "cluster-sedang"
-                        : "cluster-tinggi"
-                    }`}
-                  >
-                    {
-                      comparisonResult
-                        .districtA
-                        .cluster
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Total Fasilitas
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtA
-                        .totalFacilities
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Kategori Dominan
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtA
-                        .dominantCategory
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Aktivitas Tertinggi
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtA
-                        .topActivities
-                    }
-                  </strong>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            {/* =========================
-                DISTRICT B
-            ========================= */}
-
-            <div className="compare-card">
-
-              <h4>
-                {
-                  comparisonResult
-                    .districtB
-                    .name
-                }
-              </h4>
-
-              <div className="compare-card-content">
-
-                <div className="compare-item">
-
-                  <span>
-                    Cluster
-                  </span>
-
-                  <strong
-                    className={`${
-                      comparisonResult
-                        .districtB
-                        .cluster ===
-                      "Magnet Rendah"
-                        ? "cluster-rendah"
-                        : comparisonResult
-                            .districtB
-                            .cluster ===
-                          "Magnet Sedang"
-                        ? "cluster-sedang"
-                        : "cluster-tinggi"
-                    }`}
-                  >
-                    {
-                      comparisonResult
-                        .districtB
-                        .cluster
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Total Fasilitas
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtB
-                        .totalFacilities
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Kategori Dominan
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtB
-                        .dominantCategory
-                    }
-                  </strong>
-
-                </div>
-
-                <div className="compare-item">
-
-                  <span>
-                    Aktivitas Tertinggi
-                  </span>
-
-                  <strong>
-                    {
-                      comparisonResult
-                        .districtB
-                        .topActivities
-                    }
-                  </strong>
-
-                </div>
-
-              </div>
-
-            </div>
+            <CompareCard
+              district={
+                comparisonResult.districtB
+              }
+            />
 
           </div>
 

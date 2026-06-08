@@ -20,18 +20,18 @@ export default function LegendPanel({
 
   const clusterLegend = [
     {
-      label: "Magnet Tinggi",
-      color: "#1a9850",
+      label: "Cluster Tinggi",
+      color: "#2E7D32",
     },
 
     {
-      label: "Magnet Sedang",
-      color: "#d4a900",
+      label: "Cluster Sedang",
+      color: "#F9A825",
     },
 
     {
-      label: "Magnet Rendah",
-      color: "#d73027",
+      label: "Cluster Rendah",
+      color: "#1976D2",
     },
   ];
 

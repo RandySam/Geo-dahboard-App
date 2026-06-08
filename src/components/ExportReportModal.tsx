@@ -4,29 +4,14 @@ import { createPortal } from "react-dom";
 
 import { exportDistrictReport } from "../utils/exportPdf";
 
-type District = {
-  id: number;
-
-  name: string;
-
-  coordinates: [
-    number,
-    number
-  ];
-
-  cluster: string;
-
-  totalFacilities: number;
-
-  dominantCategory: string;
-
-  topActivities: string;
-};
+import type {
+  DistrictReport,
+} from "../types/report";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  districts: District[];
+  districts: DistrictReport[];
 };
 
 export default function ExportReportModal({
@@ -38,7 +23,7 @@ export default function ExportReportModal({
   const [
     selectedDistricts,
     setSelectedDistricts,
-  ] = useState<number[]>([]);
+  ] = useState<string[]>([]);
 
   const handleSelectAll = () => {
 
@@ -62,7 +47,7 @@ export default function ExportReportModal({
   };
 
   const handleToggleDistrict = (
-    districtId: number
+    districtId: string
   ) => {
 
     setSelectedDistricts(prev =>

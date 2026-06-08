@@ -12,7 +12,7 @@ export default function AboutSection() {
     {
       name: "Randy Cheasario Sam",
       nim: "2602148783",
-      major: "Computer Science - Software Enggineering",
+      major: "Computer Science - Software Engineering",
       university: "Bina Nusantara",
       email: "randy.sam@binus.ac.id",
       image: fotoRandy,
@@ -21,7 +21,7 @@ export default function AboutSection() {
     {
       name: "Farrel Hakkam Amar",
       nim: "2602202734",
-      major: "Computer Science - Software Enggineering",
+      major: "Computer Science - Software Engineering",
       university: "Bina Nusantara",
       email: "farrel.amar@binus.ac.id",
       image: fotoFarrel,
@@ -30,7 +30,7 @@ export default function AboutSection() {
     {
       name: "Wafi Dian Akbar",
       nim: "2602205811",
-      major: "Computer Science - Software Enggineering",
+      major: "Computer Science - Software Engineering",
       university: "Bina Nusantara",
       email: "wafi.akbar@binus.ac.id",
       image: fotoWafi,

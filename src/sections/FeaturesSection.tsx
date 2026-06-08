@@ -13,9 +13,9 @@ import {
 const features = [
   {
     icon: <FaMapMarkedAlt />,
-    title: "Visualisasi Magnet Aktivitas",
+    title: "Visualisasi Cluster Aktivitas",
     desc:
-      "Menampilkan sebaran dan klasifikasi magnet aktivitas berdasarkan tingkat Tinggi, Sedang, dan Rendah pada peta interaktif.",
+      "Menampilkan sebaran dan klasifikasi cluster aktivitas berdasarkan tingkat Tinggi, Sedang, dan Rendah pada peta interaktif.",
   },
 
   {
@@ -64,7 +64,7 @@ const features = [
     icon: <FaPalette />,
     title: "Visualisasi Choropleth",
     desc:
-        "Menampilkan visualisasi warna wilayah berdasarkan tingkat magnet aktivitas secara informatif dan interaktif.",
+        "Menampilkan visualisasi warna wilayah berdasarkan tingkat cluster aktivitas secara informatif dan interaktif.",
     },
 
   {
@@ -90,7 +90,7 @@ export default function FeaturesSection() {
       <h2 className="section-title">
         Fitur Geodashboard
         <span>
-          Magnet Aktivitas Kota Bekasi
+          Cluster Aktivitas Kota Bekasi
         </span>
       </h2>
 

@@ -39,7 +39,7 @@ export default function HeroSection() {
           <h1 className="hero-title">
 
             Visualisasi
-            Magnet Aktivitas
+            Cluster Aktivitas
             Ekonomi
             <span>
               Kota Bekasi

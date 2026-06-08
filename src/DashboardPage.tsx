@@ -104,17 +104,6 @@ export default function DashboardPage() {
      MAP FOCUS
   ========================= */
 
-  const areaStats =
-  selectedAreas.length > 0
-    ? selectedAreas[
-        selectedAreas.length - 1
-      ]
-    : null;
-
-    console.log(
-  "SELECTED AREAS:",
-  selectedAreas
-);
 
   const [
     selectedCoords,
@@ -711,9 +700,6 @@ export default function DashboardPage() {
         }
         pieChartData={
           pieChartData
-        }
-        areaStats={
-          areaStats
         }
         setSelectedCoords={
           setSelectedCoords

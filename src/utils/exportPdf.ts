@@ -1,18 +1,14 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import Chart from "chart.js/auto";
+import type {
+  DistrictReport,
+} from "../types/report";
 
-type District = {
-  id: number;
-  name: string;
-  cluster: string;
-  totalFacilities: number;
-  dominantCategory: string;
-  topActivities: string;
-};
+
 
 export const exportDistrictReport = (
-  districts: District[]
+  districts: DistrictReport[]
 ) => {
 
   const pdf = new jsPDF();
@@ -191,21 +187,21 @@ export const exportDistrictReport = (
     districts.filter(
       district =>
         district.cluster ===
-        "Magnet Tinggi"
+        "Cluster Tinggi"
     ).length;
 
   const sedang =
     districts.filter(
       district =>
         district.cluster ===
-        "Magnet Sedang"
+        "Cluster Sedang"
     ).length;
 
   const rendah =
     districts.filter(
       district =>
         district.cluster ===
-        "Magnet Rendah"
+        "Cluster Rendah"
     ).length;
 
   pdf.setFontSize(14);
@@ -288,7 +284,7 @@ export const exportDistrictReport = (
       `Analisis dilakukan terhadap ${districts.length} kecamatan yang dipilih.`,
       `Total fasilitas yang teridentifikasi sebanyak ${totalFacilities} fasilitas.`,
       `Kecamatan dengan jumlah fasilitas tertinggi adalah ${topDistrict?.name} dengan ${topDistrict?.totalFacilities} fasilitas.`,
-      `Distribusi cluster terdiri dari ${tinggi} Magnet Tinggi, ${sedang} Magnet Sedang, dan ${rendah} Magnet Rendah.`,
+      `Distribusi cluster terdiri dari ${tinggi} Cluster Tinggi, ${sedang} Cluster Sedang, dan ${rendah} Cluster Rendah.`,
     ],
     14,
     currentY
