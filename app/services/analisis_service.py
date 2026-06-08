@@ -23,14 +23,14 @@ from app.schemas.analisis import (
 # 0 = terendah, 1 = sedang, 2 = tertinggi
 # ──────────────────────────────────────────────
 CLUSTER_LABEL_TEXT = {
-    0: "Magnet Rendah",
-    1: "Magnet Sedang",
-    2: "Magnet Tinggi",
+    0: "Cluster Rendah",
+    1: "Cluster Sedang",
+    2: "Cluster Tinggi",
 }
 CLUSTER_WARNA = {
-    0: "#d73027",   # merah   – magnet rendah
-    1: "#fee08b",   # kuning  – magnet sedang
-    2: "#1a9850",   # hijau   – magnet tinggi
+    0: "#1976D2",   # merah   – magnet rendah
+    1: "#F9A825",   # kuning  – magnet sedang
+    2: "#2E7D32",   # hijau   – magnet tinggi
 }
 
 
