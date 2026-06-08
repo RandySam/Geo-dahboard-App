@@ -376,6 +376,28 @@ export default function MapView({
                 layer.options.pmIgnore =
                   true;
 
+                layer.on("add", () => {
+
+                  const element =
+                    layer.getElement();
+
+                  if (element) {
+
+                    const districtName =
+                      feature.properties
+                        ?.nama_kecamatan
+                        ?.toLowerCase()
+                        .replace(/\s+/g, "-");
+
+                    element.setAttribute(
+                      "data-district",
+                      districtName
+                    );
+
+                  }
+
+                });
+
                 const props =
                   feature.properties;
 
